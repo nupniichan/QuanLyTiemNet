@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "936299705455",
+    "project_id": "doancnpm-bcfae",
+    "storage_bucket": "doancnpm-bcfae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936299705455:android:5b4e72cb60495a7ea3c99a",
+        "android_client_info": {
+          "package_name": "com.example.doancnpm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4DL2-fIJJfj2V3DLW7IwN5YbelIFydj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
