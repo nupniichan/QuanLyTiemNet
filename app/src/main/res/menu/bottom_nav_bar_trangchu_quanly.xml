@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Trang chủ"
+        android:icon="@drawable/home_vector"
+        android:id="@+id/btm_nvbar_home_trangchu_quanly"></item>
+    <item android:title="Máy tính"
+        android:icon="@drawable/computer_vector"
+        android:id="@+id/btm_nvbar_computer_trangchu_quanly"></item>
+    <item android:title="Dịch vụ"
+        android:icon="@drawable/service_vector"
+        android:id="@+id/btm_nvbar_serivce_trangchu_quanly"></item>
+    <item android:title="Khác"
+        android:icon="@drawable/options_vector"
+        android:id="@+id/btm_nvbar_options_trangchu_quanly"></item>
+</menu>

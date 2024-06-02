@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="Person"
-        android:id="@+id/ToolBarTrangChuChuTiem_Person"
-        android:icon="@drawable/person_vector"
+        android:title="Thêm dịch vụ"
+        android:id="@+id/ToolBarTrangChuChuTiem_DichVu_Add"
+        android:icon="@drawable/add_box_vector"
         app:showAsAction="ifRoom">
     </item>
 </menu>

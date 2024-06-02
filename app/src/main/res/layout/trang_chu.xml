@@ -4,66 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".TrangChu">
 
-    <FrameLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/ToolBarTrangChu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/lavender"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Tiệm net PPBC"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/TrangChuFrameLayoutContainter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/ToolBarTrangChu"
+        app:layout_constraintBottom_toTopOf="@id/btm_nvbar_trangchu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/ToolBarTrangChu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/lavender"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:title="Tiệm net PPBC"></androidx.appcompat.widget.Toolbar>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/TrangChu_user_avatar"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:src="@drawable/chinoavatar" />
-
-                    <TextView
-                        android:id="@+id/TrangChu_username_notlogined"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:text="TextView" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </ScrollView>
-    </FrameLayout>
-    
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btm_nvbar_trangchu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_bar_trangchu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/bottom_nav_bar_trangchu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

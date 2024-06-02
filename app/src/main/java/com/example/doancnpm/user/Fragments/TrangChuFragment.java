@@ -12,10 +12,10 @@ import com.example.doancnpm.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TrangChu#newInstance} factory method to
+ * Use the {@link TrangChuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TrangChu extends Fragment {
+public class TrangChuFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class TrangChu extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public TrangChu() {
+    public TrangChuFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class TrangChu extends Fragment {
      * @return A new instance of fragment TrangChu.
      */
     // TODO: Rename and change types and number of parameters
-    public static TrangChu newInstance(String param1, String param2) {
-        TrangChu fragment = new TrangChu();
+    public static TrangChuFragment newInstance(String param1, String param2) {
+        TrangChuFragment fragment = new TrangChuFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
