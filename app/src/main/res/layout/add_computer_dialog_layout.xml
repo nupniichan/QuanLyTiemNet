@@ -228,7 +228,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="L1-A34"
-            android:inputType="number" />
+            android:inputType="text" />
 
     </LinearLayout>
 

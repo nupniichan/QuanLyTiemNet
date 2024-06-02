@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.example.doancnpm.Objects.Computer;
 import com.example.doancnpm.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -72,6 +74,11 @@ public class QuanLyMayTinh extends Fragment {
         EditText priceEditText = view.findViewById(R.id.PriceEditTextID);
         EditText seatLocationEditText = view.findViewById(R.id.SeatLocationEditTextID);
         Button addButton = view.findViewById(R.id.btnThemMayTInhID);
+
+        // Tạo và hiển thị AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,18 +89,29 @@ public class QuanLyMayTinh extends Fragment {
                 String gpu = gpuEditText.getText().toString();
                 String ram = ramEditText.getText().toString();
                 String monitor = monitorEditText.getText().toString();
-                String price = priceEditText.getText().toString();
+                String priceString = priceEditText.getText().toString();
+                Integer price = Integer.parseInt(priceString);
                 String seatLocation = seatLocationEditText.getText().toString();
                 Computer computer = new Computer(id, name, loaiMayTinh, cpu, gpu, ram, monitor, price, seatLocation);
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("computers");
 
-                myRef.child(id).setValue(computer);
+                myRef.child(id).setValue(computer).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // Đóng dialog
+                            dialog.dismiss();
+                            // Hiển thị thông báo thành công
+                            Toast.makeText(getActivity(), "Thêm máy tính thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Hiển thị thông báo lỗi
+                            Toast.makeText(getActivity(), "Thêm máy tính thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
-        // Tạo và hiển thị AlertDialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 }
