@@ -1,5 +1,5 @@
 # QuanLyTiemNet
-Để sử dụng commit về xài được thì tải Android Studio bản này [2022.3.1 patch 3](https://redirector.gvt1.com/edgedl/android/studio/install/2022.3.1.21/android-studio-2022.3.1.21-windows.exe)
+Để sử dụng và xài được không bị dính lỗi thì tải Android Studio bản này [2022.3.1 patch 3](https://redirector.gvt1.com/edgedl/android/studio/install/2022.3.1.21/android-studio-2022.3.1.21-windows.exe)
 
 # Các sử dụng git:
 - Tải git về [ở đây](https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/Git-2.45.1-64-bit.exe)
@@ -11,7 +11,7 @@
 - Rồi tạo pull request [ở đây](https://github.com/nupniichan/QuanLyTiemNet/pulls) để tui kiểm tra code rồi add vào nhánh chính. **Nếu được thì thêm cho tui 1 vài description để tui check cho dễ cũng được**. Xong bấm nút xác nhận rồi chờ tui reply thôi
 
 # Một vài lưu ý
-- Ngay trước khi mở Android Studio lên thì nhớ sử dụng *git pull origin main* để lấy code mới nhất được tui update trên nhánh main về làm để tránh bị lỗi
+- Ngay trước khi mở Android Studio lên thì nhớ sử dụng **git pull origin main** để lấy code mới nhất được tui update trên nhánh main về làm để tránh bị lỗi
 - Nhớ chuyển sang nhánh mấy ông đã tạo để làm **Đừng làm trên nhánh main**
 - Lúc sử dụng **git commit -m "tin nhắn"** thì ở chỗ tin nhắn mấy ông liệt kê càng chi tiết càng tốt nha
 
