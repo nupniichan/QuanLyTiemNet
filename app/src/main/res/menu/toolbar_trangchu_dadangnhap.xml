@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Person"
+        android:id="@+id/ToolBarTrangChu_DaDangNhap_PersonLogined"
+        android:icon="@drawable/person_vector"
+        app:showAsAction="ifRoom">
+    </item>
+    <item android:title="Cài đặt"
+        android:id="@+id/ToolBarTrangChu_DaDangNhap_Settings">
+    </item>
+    <item android:title="Đăng xuất"
+        android:id="@+id/ToolBarTrangChu_DaDangNhap_Logout">
+    </item>
+</menu>
