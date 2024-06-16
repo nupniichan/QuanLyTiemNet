@@ -1,4 +1,4 @@
-package com.example.doancnpm.user.Fragments;
+package com.example.doancnpm.user;
 
 import android.content.Context;
 import android.content.SharedPreferences;
