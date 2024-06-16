@@ -6,19 +6,30 @@ public class Service {
     private String id;
     private String ServiceName;
     private String ServiceType;
-    private String ServiceImage; // Now stores the URL
+    private String ServiceImage;
+
+    public String getMoTa() {
+        return MoTa;
+    }
+
+    public void setMoTa(String moTa) {
+        MoTa = moTa;
+    }
+
+    private String MoTa;
     private int price;
 
     public Service() {
         // Default constructor required for calls to DataSnapshot.getValue(Service.class)
     }
 
-    public Service(String id, String ServiceName, String ServiceType, String ServiceImage, int price) {
+    public Service(String id, String ServiceName, String ServiceType, String ServiceImage, int price, String moTa) {
         this.id = id;
         this.ServiceName = ServiceName;
         this.ServiceType = ServiceType;
         this.ServiceImage = ServiceImage;
         this.price = price;
+        this.MoTa = moTa;
     }
 
     public String getId() {

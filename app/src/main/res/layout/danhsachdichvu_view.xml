@@ -19,7 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -38,13 +38,6 @@
                     android:layout_weight="1"
                     android:orientation="horizontal"></LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/QuanLyDichVuButton"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:background="#00FFFFFF"
-                    android:baselineAlignBottom="true"
-                    android:src="@drawable/menu_vector" />
             </LinearLayout>
 
             <View
@@ -84,7 +77,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:gravity="center|start"
-                        android:text="Mo ta"
+                        android:text="Tên dịch vụ"
                         android:textSize="16sp" />
 
                     <TextView
@@ -136,6 +129,15 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <Button
+                    android:id="@+id/btnReservation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#000000"
+                    android:text="Đặt dịch vụ"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
         </LinearLayout>
 

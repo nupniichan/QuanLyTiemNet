@@ -105,6 +105,7 @@ public class QuanLyDichVu extends Fragment {
         EditText nameEditText = dialogView.findViewById(R.id.ComputerNameEditTextID);
         EditText typeEditText = dialogView.findViewById(R.id.ComputerTypeEditTextID);
         EditText priceEditText = dialogView.findViewById(R.id.PriceServiceEditTextID);
+        EditText moTaEditText = dialogView.findViewById(R.id.MoTaEditTextID);
         selectedImageView = dialogView.findViewById(R.id.selectedImageView);
         Button selectImageButton = dialogView.findViewById(R.id.selectImageButton);
         Button addButton = dialogView.findViewById(R.id.btnThemDichVuID);
@@ -117,9 +118,10 @@ public class QuanLyDichVu extends Fragment {
 
         addButton.setOnClickListener(v -> {
             String id = idEditText.getText().toString().trim();
-            String name = nameEditText.getText().toString().trim();
-            String type = typeEditText.getText().toString().trim();
-            String price = priceEditText.getText().toString().trim();
+            String name = nameEditText.getText().toString();
+            String mota = moTaEditText.getText().toString();
+            String type = typeEditText.getText().toString();
+            String price = priceEditText.getText().toString();
 
             if (selectedBitmap != null) {
                 // Tạo reference cho Firebase Storage
@@ -142,7 +144,7 @@ public class QuanLyDichVu extends Fragment {
                             taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> {
                                 // Lưu đường dẫn ảnh vào Firebase Realtime Database
                                 String imageUrl = uri.toString();
-                                Service newService = new Service(id, name, type, imageUrl, Integer.parseInt(price));
+                                Service newService = new Service(id, name, type, imageUrl, Integer.parseInt(price), mota);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("services");
                                 databaseReference.child(id).setValue(newService)
                                         .addOnCompleteListener(task1 -> {

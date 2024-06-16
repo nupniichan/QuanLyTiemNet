@@ -35,12 +35,12 @@ public class QuanLyDanhSachDichVuAdapter extends RecyclerView.Adapter<QuanLyDanh
         holder.TenDichVu.setText(service.get(position).getServiceName());
         holder.ServiceName.setText(service.get(position).getServiceName());
         holder.LoaiDichVu.setText(service.get(position).getServiceType());
-
-        String imageUrl = service.get(position).getServiceImage(); // Get the image URL
+        holder.MoTa.setText(service.get(position).getMoTa());
+        String imageUrl = service.get(position).getServiceImage();
 
         Glide.with(context)
                 .load(imageUrl)
-                .into(holder.HinhAnh); // Load image from URL using Glide
+                .into(holder.HinhAnh);
 
         int price = service.get(position).getPrice();
         String formattedPrice = String.format("%,d VND", price);
