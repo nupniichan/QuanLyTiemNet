@@ -34,6 +34,11 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/QuanLyDichVuRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
         </LinearLayout>
