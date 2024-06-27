@@ -15,12 +15,25 @@
         android:theme="@style/Theme.DoAnCNPM"
         tools:targetApi="31">
         <activity
+            android:name=".user.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.Fragments.Login"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.DoAnCNPM" />
+        <activity
+            android:name=".QuanLy.ChuTiemTrangChu"
+            android:exported="false" />
+        <activity
             android:name=".user.DangKy"
             android:exported="false" />
         <activity
             android:name=".Utils.Splash_Screen"
             android:exported="true"
             android:theme="@style/Theme.Design.NoActionBar">
+            android:name=".TrangChu"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
