@@ -14,29 +14,46 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnCNPM"
         tools:targetApi="31">
+
         <activity
             android:name=".user.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".user.Fragments.Login"
+            android:name=".user.Fragments.DangNhap"
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.DoAnCNPM" />
+
+        <!-- Activities merged from both branches -->
         <activity
             android:name=".QuanLy.ChuTiemTrangChu"
             android:exported="false" />
+
         <activity
-            android:name=".user.TrangChuDaDangNhap"
+            android:name=".user.DangKy"
             android:exported="false" />
+
         <activity
             android:name=".TrangChu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".user.DangNhap"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.TrangChuChuaDangNhap"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.TrangChuDaDangNhap"
+            android:exported="false" />
+
     </application>
 
 </manifest>
