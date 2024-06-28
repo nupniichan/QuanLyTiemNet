@@ -30,7 +30,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".user.DangKy"
+            android:name=".user.TrangChuDaDangNhap"
             android:exported="false" />
 
         <activity
@@ -41,7 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".user.DangNhap"
             android:exported="false" />
@@ -53,7 +52,6 @@
         <activity
             android:name=".user.TrangChuDaDangNhap"
             android:exported="false" />
-
     </application>
 
 </manifest>
