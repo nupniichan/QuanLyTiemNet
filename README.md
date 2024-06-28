@@ -19,10 +19,7 @@
 - Lúc sử dụng **git commit -m "tin nhắn"** thì ở chỗ tin nhắn mấy ông liệt kê càng chi tiết càng tốt nha
 
 # Các công việc cần làm
-- Kết nối và sử dụng firebase
-- Thêm máy theo cấu hình trong quản lý máy tính của chủ tiệm sử dụng firebase
-- Thêm dịch vụ trong quản lý dịch vụ của chủ tiệm sử dụng firebase
-- Tạo recyclerView và get dữ liệu từ firebase về giao diện
-- Tạo các danh mục menu như: tố cáo, góp ý, báo cáo trong phần *Khác* của user và phần *Thông tin báo cáo* của chủ tiệm
-- Đăng nhập, đăng ký, đăng xuất cho tất cả user
+- Đăng nhập, đăng ký, đăng xuất cho tất cả user (SQLite hoặc firebase tuỳ mấy ông)
 - Cải thiện giao diện người dùng
+- Options xoá, sửa thông tin trong máy tính và dịch vụ
+- Chức năng tố cáo, góp ý, báo cáo
