@@ -32,8 +32,7 @@
             android:name=".Utils.Splash_Screen"
             android:exported="true"
             android:theme="@style/Theme.Design.NoActionBar">
-            android:name=".TrangChu"
-            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
