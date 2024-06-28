@@ -14,77 +14,46 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnCNPM"
         tools:targetApi="31">
+
         <activity
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
             android:name=".user.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".user.Fragments.Login"
+            android:name=".user.Fragments.DangNhap"
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.DoAnCNPM" />
+
+        <!-- Activities merged from both branches -->
         <activity
             android:name=".QuanLy.ChuTiemTrangChu"
             android:exported="false" />
+
         <activity
->>>>>>> 615e32758a3b25846f661101bb39e107bb82fcae
             android:name=".user.DangKy"
             android:exported="false" />
+
         <activity
-            android:name=".Utils.Splash_Screen"
-            android:exported="true"
-            android:theme="@style/Theme.Design.NoActionBar">
             android:name=".TrangChu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".user.DangNhap"
             android:exported="false" />
+
         <activity
             android:name=".user.TrangChuChuaDangNhap"
-            android:exported="false"></activity>
-<<<<<<< HEAD
-=======
-            android:name=".user.LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".user.Fragments.Login"
-            android:exported="false"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.DoAnCNPM" />
->>>>>>> 8b3751895219451adef3b2b03b63022632db0d0a
-=======
->>>>>>> 615e32758a3b25846f661101bb39e107bb82fcae
-        <activity
-            android:name=".QuanLy.ChuTiemTrangChu"
-            android:exported="false" />
+
         <activity
             android:name=".user.TrangChuDaDangNhap"
             android:exported="false" />
-        <activity
-            android:name=".TrangChu"
-<<<<<<< HEAD
-<<<<<<< HEAD
-            android:exported="false" />
-=======
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
->>>>>>> 8b3751895219451adef3b2b03b63022632db0d0a
-=======
-            android:exported="false" />
->>>>>>> 615e32758a3b25846f661101bb39e107bb82fcae
     </application>
 
 </manifest>
