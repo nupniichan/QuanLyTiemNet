@@ -26,17 +26,34 @@
             android:name=".QuanLy.ChuTiemTrangChu"
             android:exported="false" />
         <activity
-            android:name=".user.TrangChuDaDangNhap"
+            android:name=".user.DangKy"
             android:exported="false" />
         <activity
-            android:name=".TrangChu"
-            android:exported="true">
+            android:name=".Utils.Splash_Screen"
+            android:exported="true"
+            android:theme="@style/Theme.Design.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".user.DangNhap"
+            android:exported="false" />
+        <activity
+            android:name=".user.TrangChuChuaDangNhap"
+            android:exported="false"></activity>
+        <activity
+            android:name=".QuanLy.ChuTiemTrangChu"
+            android:exported="false" />
+        <activity
+            android:name=".user.TrangChuDaDangNhap"
+            android:exported="false" />
+        <activity
+            android:name=".TrangChu"
+            android:exported="false" />
     </application>
 
 </manifest>
