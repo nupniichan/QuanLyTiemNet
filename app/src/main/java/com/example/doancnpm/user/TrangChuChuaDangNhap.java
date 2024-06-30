@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.doancnpm.QuanLy.ChuTiemTrangChu;
+import com.example.doancnpm.QuanLy.Fragments.TrangChuQuanLy;
 import com.example.doancnpm.R;
 
 public class TrangChuChuaDangNhap extends AppCompatActivity {
@@ -22,7 +24,7 @@ public class TrangChuChuaDangNhap extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(TrangChuChuaDangNhap.this, DangNhap.class);
+                Intent intent= new Intent(TrangChuChuaDangNhap.this, ChuTiemTrangChu.class);
                 startActivity(intent);
             }
         });

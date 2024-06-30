@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Thêm quyền truy cập Internet nếu cần -->
 
     <application
         android:allowBackup="true"
@@ -14,11 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnCNPM"
         tools:targetApi="31">
+
         <activity
             android:name=".user.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".user.Fragments.Login"
+            android:name=".user.DangNhap"
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.DoAnCNPM" />
@@ -32,21 +34,13 @@
             android:name=".Utils.Splash_Screen"
             android:exported="true"
             android:theme="@style/Theme.Design.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".user.DangNhap"
-            android:exported="false" />
-        <activity
             android:name=".user.TrangChuChuaDangNhap"
-            android:exported="false"></activity>
-        <activity
-            android:name=".QuanLy.ChuTiemTrangChu"
             android:exported="false" />
         <activity
             android:name=".user.TrangChuDaDangNhap"

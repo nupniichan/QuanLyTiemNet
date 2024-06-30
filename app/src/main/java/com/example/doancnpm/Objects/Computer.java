@@ -1,6 +1,10 @@
 package com.example.doancnpm.Objects;
 
 public class Computer {
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

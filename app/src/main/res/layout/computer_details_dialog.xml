@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/detail_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên máy: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detail_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loại máy: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detail_cpu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CPU: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detail_gpu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GPU: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detail_ram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RAM: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detail_monitor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Màn hình: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detail_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giá: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detail_seat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vị trí: "
+        android:textStyle="bold" />
+</LinearLayout>
