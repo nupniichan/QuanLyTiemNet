@@ -1,6 +1,10 @@
 package com.example.doancnpm.QuanLy.Fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -251,7 +255,6 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
 
                 // Tạo một đối tượng Computer mới với thông tin đã cập nhật
                 Computer updatedComputer = new Computer(newId, newName, newLoaiMayTinh, newCpu, newGpu, newRam, newMonitor, newPrice, newSeatLocation);
-                // Cập nhật máy tính trong database
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("computers");
                 myRef.child(computer.getId()).setValue(updatedComputer)
@@ -271,25 +274,43 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
             }
         });
     }
-    @Override
     public void onDeleteClick(int position) {
-        // Xử lý sự kiện click vào nút xóa
         Computer computer = computers.get(position);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("computers");
-        myRef.child(computer.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
-                    computers.remove(position);
-                    adapter.notifyItemRemoved(position);
-                    Toast.makeText(getContext(), "Xóa " + computer.getName() + " thành công", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(getContext(), "Xóa " + computer.getName() + " thất bại", Toast.LENGTH_SHORT).show();
-                }
+
+        // Sử dụng requireActivity() để lấy Context của Activity
+        // Cách này an toàn hơn và đảm bảo bạn luôn có Context của Activity.
+        Activity activity = requireActivity();
+
+        activity.runOnUiThread(() -> {
+            if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
+                new AlertDialog.Builder(activity) // Sử dụng Context của Activity
+                        .setTitle("Xác nhận xóa")
+                        .setMessage("Bạn có chắc chắn muốn xóa " + computer.getName() + "?")
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                            // Xóa dữ liệu trên Firebase
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference("computers").child(computer.getId());
+                            myRef.removeValue()
+                                    .addOnSuccessListener(aVoid -> {
+                                        // Xóa item khỏi danh sách trong Fragment
+                                        computers.remove(position);
+
+                                        // Cập nhật UI thông qua Adapter
+                                        if (adapter != null) {
+                                            adapter.notifyItemRemoved(position);
+                                        }
+
+                                        // Hiển thị Toast
+                                        Toast.makeText(activity, "Xóa " + computer.getName() + " thành công", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Xử lý lỗi
+                                        Toast.makeText(activity, "Xóa " + computer.getName() + " thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    });
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
     }

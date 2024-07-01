@@ -102,24 +102,7 @@ public class QuanLyDanhSachDichVuAdapter extends RecyclerView.Adapter<QuanLyDanh
                     }
                 }
                 if (id == R.id.menu_delete){
-                    if (onItemClickListener != null) {
-                        try {
-                            new AlertDialog.Builder(activityContext)
-                                    .setTitle("Xóa dịch vụ")
-                                    .setMessage("Bạn có chắc chắn muốn xóa dịch vụ này?")
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            onItemClickListener.onDeleteClick(position);
-                                        }
-                                    })
-                                    .setNegativeButton(android.R.string.no, null)
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
-                        } catch (WindowManager.BadTokenException e) {
-                            Log.e(TAG, "Error showing dialog:", e);
-                            Toast.makeText(activityContext, "Unable to perform action at this time.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                    onItemClickListener.onDeleteClick(position);
                 }
                 return true;
             }
