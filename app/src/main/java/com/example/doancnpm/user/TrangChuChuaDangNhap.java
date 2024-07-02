@@ -26,7 +26,6 @@ public class TrangChuChuaDangNhap extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(TrangChuChuaDangNhap.this, DangNhap.class);
-                Intent intent= new Intent(TrangChuChuaDangNhap.this, TrangChu.class);
                 startActivity(intent);
             }
         });
