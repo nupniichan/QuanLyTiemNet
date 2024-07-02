@@ -1,23 +1,29 @@
 package com.example.doancnpm.user.Fragments;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.doancnpm.R;
+import com.example.doancnpm.user.DangNhap;
+import com.example.doancnpm.user.TrangChuChuaDangNhap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link KhacFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class KhacFragment extends Fragment {
+
+public class SettingFragment extends Fragment {
+View root;
+TextView txtDX;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,24 +34,14 @@ public class KhacFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ListView listView;
-    private String[] items = {"Tố cáo", "Góp ý", "Ngôn ngữ", "Thông tin App", "Đăng xuất"};
-
-    public KhacFragment() {
+    public SettingFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Khac.
-     */
+
     // TODO: Rename and change types and number of parameters
-    public static KhacFragment newInstance(String param1, String param2) {
-        KhacFragment fragment = new KhacFragment();
+    public static SettingFragment newInstance(String param1, String param2) {
+        SettingFragment fragment = new SettingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,19 +56,32 @@ public class KhacFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_khac, container, false);
+    root=inflater.inflate(R.layout.fragment_setting,container,false);
+    txtDX = root.findViewById(R.id.txtDX);
+    txtDX.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            dangxuat();
+        }
+    });
 
-        // Initialize ListView
-        listView = view.findViewById(R.id.list_view);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_khac, R.id.text_view, items);
-        listView.setAdapter(adapter);
-
-        return view;
+        return root;
     }
+
+    private void dangxuat() {
+        Toast.makeText(getActivity(),"Đẵ đăng xuất",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity(), TrangChuChuaDangNhap.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);             startActivity(intent);
+        startActivity(intent);
+    }
+
+
 }

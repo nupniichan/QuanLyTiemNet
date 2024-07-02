@@ -11,13 +11,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.doancnpm.QuanLy.ChuTiemTrangChu;
 import com.example.doancnpm.databinding.TrangChuBinding;
 import com.example.doancnpm.user.Fragments.DichVuFragment;
-import com.example.doancnpm.user.Fragments.KhacFragment;
 import com.example.doancnpm.user.Fragments.MayTinhFragment;
+import com.example.doancnpm.user.Fragments.SettingFragment;
 import com.example.doancnpm.user.Fragments.TrangChuFragment;
 
 public class TrangChu extends AppCompatActivity {
@@ -46,7 +45,7 @@ public class TrangChu extends AppCompatActivity {
                 replaceFragment(new DichVuFragment());
             }
             else if (itemId == R.id.btm_nvbar_options_trangchu){
-                replaceFragment(new KhacFragment());
+                replaceFragment(new SettingFragment());
             }
             return true;
         });

@@ -1,24 +1,18 @@
 package com.example.doancnpm.QuanLy;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.doancnpm.QuanLy.Fragments.QuanLyDichVu;
 import com.example.doancnpm.QuanLy.Fragments.QuanLyMayTinh;
 import com.example.doancnpm.QuanLy.Fragments.TrangChuQuanLy;
 import com.example.doancnpm.R;
 import com.example.doancnpm.databinding.ChuTiemTrangChuBinding;
-import com.example.doancnpm.user.Fragments.KhacFragment;
-import com.example.doancnpm.user.Fragments.MayTinhFragment;
+import com.example.doancnpm.user.Fragments.SettingFragment;
 
 public class ChuTiemTrangChu extends AppCompatActivity {
     ChuTiemTrangChuBinding binding;
@@ -43,7 +37,7 @@ public class ChuTiemTrangChu extends AppCompatActivity {
             }
             else if (itemId == R.id.btm_nvbar_options_trangchu_quanly){
                 // cần sửa thành cái khác
-                replaceFragment(new KhacFragment());
+                replaceFragment(new SettingFragment());
             }
             return true;
         });
