@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- Thêm quyền truy cập Internet nếu cần -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,10 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnCNPM"
         tools:targetApi="31">
-
-        <activity
-            android:name=".user.LoginActivity"
-            android:exported="false" />
         <activity
             android:name=".user.DangNhap"
             android:exported="false"
@@ -36,6 +32,7 @@
             android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

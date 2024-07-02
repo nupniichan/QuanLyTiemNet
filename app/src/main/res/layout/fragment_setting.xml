@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.Fragments.SettingFragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/chinoavatar"
+        android:layout_gravity="center"
+        android:layout_marginBottom="200dp"
+        />
+
+    <Button
+        android:id="@+id/txtDX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
+        android:layout_marginStart="139dp"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="@color/Gray"
+        android:drawableLeft="@drawable/icon_logout"
+        android:text="Đăng xuất"
+
+        />
+
+
+
+
+</FrameLayout>
