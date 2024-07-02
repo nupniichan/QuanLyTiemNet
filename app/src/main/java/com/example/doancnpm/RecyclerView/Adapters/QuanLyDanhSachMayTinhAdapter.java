@@ -91,20 +91,7 @@ public class QuanLyDanhSachMayTinhAdapter extends RecyclerView.Adapter<QuanLyDan
                     }
                 }
                 if (id == R.id.menu_delete){
-                    new AlertDialog.Builder(context)
-                            .setTitle("Xóa máy tính")
-                            .setMessage("Bạn có chắc chắn muốn xóa máy tính này?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Xử lý xóa máy tính ở đây
-                                    if (onItemClickListener != null) {
-                                        onItemClickListener.onDeleteClick(position);
-                                    }
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    onItemClickListener.onDeleteClick(position);
                 }
                 return true;
             }
