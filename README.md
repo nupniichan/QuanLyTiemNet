@@ -13,6 +13,7 @@
 # Một vài lưu ý
 - Ngay trước khi mở Android Studio lên thì nhớ sử dụng **git pull origin main** để lấy code mới nhất được tui update trên nhánh main về làm để tránh bị lỗi **HOẶC** sử dụng **git checkout main** rồi **git pull** khi nào nó hiện ra giống như thế này là được. <br />
 ![image](https://github.com/nupniichan/QuanLyTiemNet/assets/87707214/8e9601f3-e808-46db-aa74-9a034cba48f9)
+- Sau khi đã pull xong thì chuyển nhánh sang nhánh của mấy ông *git checkout ...* rồi sử dụng **git merge main** để lấy đống code pull được từ trên nhánh main vào trong nhánh của ông
 - Kiểm tra trạng thái nhánh trước khi làm việc: **git status** <br />
 ![image](https://github.com/nupniichan/QuanLyTiemNet/assets/87707214/22f8e1f1-59d3-4392-8967-787d45719dbe)
 - Nhớ chuyển sang nhánh mấy ông đã tạo để làm **Đừng làm trên nhánh main**
