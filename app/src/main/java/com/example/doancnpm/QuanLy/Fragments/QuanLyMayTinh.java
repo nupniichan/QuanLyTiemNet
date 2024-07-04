@@ -1,10 +1,7 @@
 package com.example.doancnpm.QuanLy.Fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,8 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doancnpm.Objects.Computer;
+import com.example.doancnpm.Objects.ComputerGroup;
+import com.example.doancnpm.RecyclerView.QuanLyGroup.ComputerListAdapter;
 import com.example.doancnpm.R;
-import com.example.doancnpm.RecyclerView.Adapters.QuanLyDanhSachMayTinhAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -36,13 +34,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+public class QuanLyMayTinh extends Fragment {
 
-public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdapter.OnItemClickListener {
-    private List<Computer> computers = new ArrayList<>();
     private RecyclerView recyclerView;
-    private QuanLyDanhSachMayTinhAdapter adapter;
+    private ComputerListAdapter adapter;
+    private List<Object> itemList = new ArrayList<>(); // Danh sách chứa cả ComputerGroup và Computer
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,13 +55,10 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
 
         recyclerView = view.findViewById(R.id.QuanLyMayTinhRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        adapter = new QuanLyDanhSachMayTinhAdapter(getActivity().getApplicationContext(), computers);
+        adapter = new ComputerListAdapter(itemList, this);
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(this);
 
         fetchComputersFromFirebase();
-
         return view;
     }
 
@@ -98,8 +95,8 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
         EditText monitorEditText = view.findViewById(R.id.MonitorEditTextID);
         EditText priceEditText = view.findViewById(R.id.PriceEditTextID);
         EditText seatLocationEditText = view.findViewById(R.id.SeatLocationEditTextID);
+        EditText statusEditText = view.findViewById(R.id.computerStatusEditTextID);
         Button addButton = view.findViewById(R.id.btnThemMayTInhID);
-
         AlertDialog dialog = builder.create();
         dialog.show();
 
@@ -116,7 +113,8 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
                 String priceString = priceEditText.getText().toString();
                 Integer price = Integer.parseInt(priceString);
                 String seatLocation = seatLocationEditText.getText().toString();
-                Computer computer = new Computer(id, name, loaiMayTinh, cpu, gpu, ram, monitor, price, seatLocation);
+                String status = statusEditText.getText().toString();
+                Computer computer = new Computer(id, name, loaiMayTinh, cpu, gpu, ram, monitor, price, seatLocation, status);
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("computers");
@@ -125,12 +123,9 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            // Đóng dialog
                             dialog.dismiss();
-                            // Hiển thị thông báo thành công
                             Toast.makeText(getActivity(), "Thêm máy tính thành công", Toast.LENGTH_SHORT).show();
                         } else {
-                            // Hiển thị thông báo lỗi
                             Toast.makeText(getActivity(), "Thêm máy tính thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -139,6 +134,7 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
         });
     }
 
+
     private void fetchComputersFromFirebase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("computers");
@@ -146,28 +142,38 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                computers.clear();
+                itemList.clear();
+
+                Map<String, List<Computer>> computerMap = new HashMap<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Computer computer = snapshot.getValue(Computer.class);
-                    computers.add(computer);
+                    String groupName = computer.getLoaiMayTinh();
+                    if (!computerMap.containsKey(groupName)) {
+                        computerMap.put(groupName, new ArrayList<>());
+                    }
+                    computerMap.get(groupName).add(computer);
                 }
+
+                for (Map.Entry<String, List<Computer>> entry : computerMap.entrySet()) {
+                    ComputerGroup group = new ComputerGroup(entry.getKey(), entry.getValue());
+                    itemList.add(group);
+                    group.setExpanded(true);
+                    itemList.addAll(group.getComputers());
+                }
+
                 adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "Lỗi khi tải dữ liệu: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi
+                Toast.makeText(getContext(), "Lỗi: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    @Override
-    public void onViewClick(int position) {
-        Computer computer = computers.get(position);
-        showComputerDetailsDialog(computer);
-    }
 
-    private void showComputerDetailsDialog(Computer computer) {
+    public void showComputerDetailsDialog(Computer computer) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Thông tin máy tính");
 
@@ -200,14 +206,7 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
         dialog.show();
     }
 
-    @Override
-    public void onEditClick(int position) {
-        // Xử lý sự kiện click vào nút sửa
-        Computer computer = computers.get(position);
-        showEditComputerDialog(computer);
-        // ...
-    }
-    private void showEditComputerDialog(Computer computer) {
+    public void showEditComputerDialog(Computer computer) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Sửa thông tin máy tính");
 
@@ -223,8 +222,10 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
         EditText monitorEditText = view.findViewById(R.id.MonitorEditTextID);
         EditText priceEditText = view.findViewById(R.id.PriceEditTextID);
         EditText seatLocationEditText = view.findViewById(R.id.SeatLocationEditTextID);
+        EditText statusEditText = view.findViewById(R.id.computerStatusEditTextID);
         Button updateButton = view.findViewById(R.id.btnThemMayTInhID);
         updateButton.setText("Lưu thay đổi");
+
         // Đổ dữ liệu của máy tính vào các trường EditText
         idEditText.setText(computer.getId());
         idEditText.setEnabled(false);
@@ -235,6 +236,7 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
         ramEditText.setText(computer.getRam());
         monitorEditText.setText(computer.getMonitor());
         priceEditText.setText(String.valueOf(computer.getPrice()));
+        statusEditText.setText(computer.getStatus());
         seatLocationEditText.setText(computer.getComputerSeatLocation());
 
         AlertDialog dialog = builder.create();
@@ -250,11 +252,12 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
                 String newGpu = gpuEditText.getText().toString();
                 String newRam = ramEditText.getText().toString();
                 String newMonitor = monitorEditText.getText().toString();
+                String status = statusEditText.getText().toString();
                 int newPrice = Integer.parseInt(priceEditText.getText().toString());
                 String newSeatLocation = seatLocationEditText.getText().toString();
 
                 // Tạo một đối tượng Computer mới với thông tin đã cập nhật
-                Computer updatedComputer = new Computer(newId, newName, newLoaiMayTinh, newCpu, newGpu, newRam, newMonitor, newPrice, newSeatLocation);
+                Computer updatedComputer = new Computer(newId, newName, newLoaiMayTinh, newCpu, newGpu, newRam, newMonitor, newPrice, newSeatLocation, status);
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("computers");
                 myRef.child(computer.getId()).setValue(updatedComputer)
@@ -274,44 +277,44 @@ public class QuanLyMayTinh extends Fragment implements QuanLyDanhSachMayTinhAdap
             }
         });
     }
-    public void onDeleteClick(int position) {
-        Computer computer = computers.get(position);
 
-        // Sử dụng requireActivity() để lấy Context của Activity
-        // Cách này an toàn hơn và đảm bảo bạn luôn có Context của Activity.
-        Activity activity = requireActivity();
+    public void deleteComputer(int position) {
+        Object item = itemList.get(position);
+        if (item instanceof Computer) {
+            Computer computer = (Computer) item;
+            // Sử dụng requireActivity() để lấy Context của Activity
+            Activity activity = requireActivity();
 
-        activity.runOnUiThread(() -> {
-            if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
-                new AlertDialog.Builder(activity) // Sử dụng Context của Activity
-                        .setTitle("Xác nhận xóa")
-                        .setMessage("Bạn có chắc chắn muốn xóa " + computer.getName() + "?")
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                            // Xóa dữ liệu trên Firebase
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference("computers").child(computer.getId());
-                            myRef.removeValue()
-                                    .addOnSuccessListener(aVoid -> {
-                                        // Xóa item khỏi danh sách trong Fragment
-                                        computers.remove(position);
+            activity.runOnUiThread(() -> {
+                if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
+                    new AlertDialog.Builder(activity)
+                            .setTitle("Xác nhận xóa")
+                            .setMessage("Bạn có chắc chắn muốn xóa " + computer.getName() + "?")
+                            .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                                // Xóa dữ liệu trên Firebase
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference myRef = database.getReference("computers").child(computer.getId());
+                                myRef.removeValue()
+                                        .addOnSuccessListener(aVoid -> {
+                                            // Xóa item khỏi danh sách trong Fragment
+                                            itemList.remove(position);
 
-                                        // Cập nhật UI thông qua Adapter
-                                        if (adapter != null) {
+                                            // Cập nhật UI thông qua Adapter
                                             adapter.notifyItemRemoved(position);
-                                        }
 
-                                        // Hiển thị Toast
-                                        Toast.makeText(activity, "Xóa " + computer.getName() + " thành công", Toast.LENGTH_SHORT).show();
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        // Xử lý lỗi
-                                        Toast.makeText(activity, "Xóa " + computer.getName() + " thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    });
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }
-        });
+                                            // Hiển thị Toast
+                                            Toast.makeText(activity, "Xóa " + computer.getName() + " thành công", Toast.LENGTH_SHORT).show();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            // Xử lý lỗi
+                                            Toast.makeText(activity, "Xóa " + computer.getName() + " thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        });
+                            })
+                            .setNegativeButton(android.R.string.no, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+        }
     }
 }
