@@ -6,6 +6,11 @@ public class ThongTinNguoiDungAdapter {
     public  String Email, CCCD,GioiTinh,DiaChi,NgaySinh,SDT,MatKhau;
     public int userType;
 
+    public ThongTinNguoiDungAdapter(){
+
+    }
+
+
     public ThongTinNguoiDungAdapter( String Email,String NgaySinh, String GioiTinh, String SDT,String MatKhau, String CCCD, String DiaChi, int userType) {
         this.Email=Email;
         this.NgaySinh = NgaySinh;

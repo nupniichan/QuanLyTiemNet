@@ -83,4 +83,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation ("com.airbnb.android:lottie:6.3.0")
 
+
 }

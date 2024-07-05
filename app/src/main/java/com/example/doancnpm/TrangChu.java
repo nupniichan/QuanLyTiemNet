@@ -18,6 +18,7 @@ import com.example.doancnpm.user.Fragments.DichVuFragment;
 import com.example.doancnpm.user.Fragments.MayTinhFragment;
 import com.example.doancnpm.user.Fragments.SettingFragment;
 import com.example.doancnpm.user.Fragments.TrangChuFragment;
+import com.example.doancnpm.user.ThongTinCaNhan;
 
 public class TrangChu extends AppCompatActivity {
     TrangChuBinding binding;
@@ -62,7 +63,7 @@ public class TrangChu extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.ToolBarTrangChu_Person) {
             // Toast.makeText(this, "Move to login page", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(), ChuTiemTrangChu.class);
+            Intent i = new Intent(getApplicationContext(), ThongTinCaNhan.class);
             startActivity(i);
         }
         return true;

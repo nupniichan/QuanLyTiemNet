@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.ThongTinCaNhan"
+    android:background="@color/Gray"
+    >
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/ToolBarTrangTTCN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lavender"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Thông Tin Cá Nhân"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#3F51B5"
+            
+
+            >
+
+            <ImageView
+                android:id="@+id/imgAVT"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/avataa" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtWelcom"
+                android:layout_below="@+id/imgAVT"
+                android:hint="Loading..."
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/white"/>
+
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:layout_margin="15dp"
+            android:background="@color/white">
+            <!--hoten-->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/ic_profile"
+                android:background="@drawable/ic_profile"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtFullname"
+                android:layout_alignStart="@id/ic_profile"
+                android:hint="Loading"
+                android:layout_marginStart="50dp"
+                android:textSize="18sp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/txtFullname"
+                android:id="@+id/divider_name"
+                android:background="#4A4747"/>
+
+
+
+            <!--showEmail -->
+
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/ic_email"
+                android:background="@drawable/icon_email"
+                android:layout_below="@id/divider_name"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtEmail"
+                android:layout_alignStart="@id/ic_email"
+                android:hint="Loading"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_below="@id/divider_name"
+                android:textSize="18sp"
+
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/divider_email"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/txtEmail"
+                android:background="#4A4747"/>
+
+
+            <!--showDoB -->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/ic_doB"
+                android:background="@drawable/icon_birthday"
+                android:layout_below="@id/divider_email"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtDoB"
+                android:layout_alignStart="@id/ic_doB"
+                android:hint="Loading"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_below="@id/divider_email"
+                android:textSize="18sp"
+
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/divider_DoB"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/txtDoB"
+                android:background="#4A4747"/>
+
+            <!--showGender -->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/ic_Gender"
+                android:background="@drawable/icon_gender"
+                android:layout_below="@id/divider_DoB"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtGender"
+                android:layout_alignStart="@id/ic_Gender"
+                android:hint="Loading"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_below="@id/divider_DoB"
+                android:textSize="18sp"
+
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/divider_gender"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/txtGender"
+                android:background="#4A4747"/>
+            <!--showPhone -->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/ic_Phone"
+                android:background="@drawable/icon_phone"
+                android:layout_below="@id/divider_gender"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPhone"
+                android:layout_alignStart="@id/ic_Phone"
+                android:hint="Loading"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_below="@id/divider_gender"
+                android:textSize="18sp"
+
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/divider_phone"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/txtPhone"
+                android:background="#4A4747"/>
+
+            <!--showcccd -->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/showCCCD"
+                android:background="@drawable/icon_document"
+                android:layout_below="@id/divider_phone"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtCCCD"
+                android:layout_alignStart="@id/ic_Phone"
+                android:hint="Loading"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_below="@id/divider_phone"
+                android:textSize="18sp"
+
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/divider_CCCD"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/showCCCD"
+                android:background="#4A4747"/>
+
+
+            <!--showAddress -->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/ic_Address"
+                android:background="@drawable/ic_addresss"
+                android:layout_below="@id/divider_CCCD"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtAddress"
+                android:layout_alignStart="@id/ic_Phone"
+                android:hint="Loading"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_below="@id/divider_CCCD"
+                android:textSize="18sp"
+
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/Address"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/ic_Address"
+                android:background="#4A4747"/>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:elevation="10dp"
+                android:visibility="gone"
+                />
+
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

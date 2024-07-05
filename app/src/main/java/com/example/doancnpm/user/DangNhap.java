@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,6 +37,8 @@ public class DangNhap extends AppCompatActivity {
     private ProgressBar progressBar;
     FirebaseAuth firebaseAuth;
 
+    CheckBox checkBox;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,24 @@ public class DangNhap extends AppCompatActivity {
         edtPassword=findViewById(R.id.edtPassword);
         progressBar=findViewById(R.id.progressBar);
         firebaseAuth =FirebaseAuth.getInstance();
+        checkBox = findViewById(R.id.checkBox);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+           if(isChecked){
+
+
+               edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+           }else {
+               edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+           }
+
+            }
+        });
+
+
+
 
         txtSignUp=findViewById(R.id.txtSignUp);
         txtSignUp.setOnClickListener(new View.OnClickListener() {
