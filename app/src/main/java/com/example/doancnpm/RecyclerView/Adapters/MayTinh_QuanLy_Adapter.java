@@ -6,18 +6,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.doancnpm.Objects.Computer;
 import com.example.doancnpm.R;
 import com.example.doancnpm.RecyclerView.ViewHolder.QuanLyMayTinhViewHolder;
+import java.util.ArrayList;
 import java.util.List;
 
-public class QuanLyMayTinhAdapter extends RecyclerView.Adapter<QuanLyMayTinhViewHolder> {
+public class MayTinh_QuanLy_Adapter extends RecyclerView.Adapter<QuanLyMayTinhViewHolder> {
 
     Context context;
-    List<Computer> computers;
+    List<Computer> computers; // Danh sách đầy đủ
+    List<Computer> filteredComputers; // Danh sách sau khi lọc
     private OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
@@ -30,9 +31,10 @@ public class QuanLyMayTinhAdapter extends RecyclerView.Adapter<QuanLyMayTinhView
         this.onItemClickListener = listener;
     }
 
-    public QuanLyMayTinhAdapter(Context context, List<Computer> computers) {
+    public MayTinh_QuanLy_Adapter(Context context, List<Computer> computers) {
         this.context = context;
         this.computers = computers;
+        this.filteredComputers = new ArrayList<>(computers); // Khởi tạo danh sách đã lọc
     }
 
     @NonNull
@@ -43,15 +45,17 @@ public class QuanLyMayTinhAdapter extends RecyclerView.Adapter<QuanLyMayTinhView
 
     @Override
     public void onBindViewHolder(@NonNull QuanLyMayTinhViewHolder holder, int position) {
-        holder.TenMayTinh.setText(computers.get(position).getName());
-        holder.CPU.setText(computers.get(position).getCpu());
-        holder.GPU.setText(computers.get(position).getGpu());
-        holder.RAM.setText(computers.get(position).getRam());
-        holder.Monitor.setText(computers.get(position).getMonitor());
-        holder.Status.setText(computers.get(position).getStatus());
-        holder.SeatLocation.setText(computers.get(position).getComputerSeatLocation());
+        // Sử dụng filteredComputers thay vì computers
+        Computer computer = filteredComputers.get(position);
+        holder.TenMayTinh.setText(computer.getName());
+        holder.CPU.setText(computer.getCpu());
+        holder.GPU.setText(computer.getGpu());
+        holder.RAM.setText(computer.getRam());
+        holder.Monitor.setText(computer.getMonitor());
+        holder.Status.setText(computer.getStatus());
+        holder.SeatLocation.setText(computer.getComputerSeatLocation());
 
-        int price = computers.get(position).getPrice();
+        int price = computer.getPrice();
         String formattedPrice = String.format("%,d VND", price);
         holder.Price.setText(formattedPrice);
 
@@ -60,7 +64,7 @@ public class QuanLyMayTinhAdapter extends RecyclerView.Adapter<QuanLyMayTinhView
 
     @Override
     public int getItemCount() {
-        return computers.size();
+        return filteredComputers.size(); // Sử dụng danh sách đã lọc
     }
 
     private void showPopupMenu(View view, int position) {
@@ -86,4 +90,5 @@ public class QuanLyMayTinhAdapter extends RecyclerView.Adapter<QuanLyMayTinhView
         });
         popupMenu.show();
     }
+
 }

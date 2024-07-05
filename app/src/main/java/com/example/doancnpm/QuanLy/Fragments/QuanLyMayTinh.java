@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class QuanLyMayTinh extends Fragment {
 
     private RecyclerView recyclerView;
     private ComputerListAdapter adapter;
-    private List<Object> itemList = new ArrayList<>(); // Danh sách chứa cả ComputerGroup và Computer
+    private List<Object> itemList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -10,31 +10,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.doancnpm.Objects.Computer;
+import com.example.doancnpm.Objects.ComputerGroup; // Make sure you have this class
 import com.example.doancnpm.R;
-import com.example.doancnpm.RecyclerView.Adapters.DanhSachMayTinhAdapter;
+import com.example.doancnpm.RecyclerView.Adapters.MayTinh_NguoiDung_Adapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MayTinhFragment extends Fragment {
-    private List<Computer> computers = new ArrayList<>();
+    private List<Object> itemList = new ArrayList<>(); // Changed to List<Object>
     private RecyclerView recyclerView;
-    private DanhSachMayTinhAdapter adapter;
+    private MayTinh_NguoiDung_Adapter adapter; // You might need to adjust this adapter
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_may_tinh, container, false);
 
         recyclerView = rootView.findViewById(R.id.DanhSachMayTinhRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new DanhSachMayTinhAdapter(getActivity().getApplicationContext(), computers);
+        adapter = new MayTinh_NguoiDung_Adapter(getActivity().getApplicationContext(), itemList, this::onGroupClick);
         recyclerView.setAdapter(adapter);
 
         fetchComputersFromFirebase();
@@ -49,17 +51,56 @@ public class MayTinhFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                computers.clear();
+                itemList.clear();
+
+                Map<String, List<Computer>> computerMap = new HashMap<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Computer computer = snapshot.getValue(Computer.class);
-                    computers.add(computer);
+                    String groupName = computer.getLoaiMayTinh();
+                    if (!computerMap.containsKey(groupName)) {
+                        computerMap.put(groupName, new ArrayList<>());
+                    }
+                    computerMap.get(groupName).add(computer);
                 }
+
+                for (Map.Entry<String, List<Computer>> entry : computerMap.entrySet()) {
+                    ComputerGroup group = new ComputerGroup(entry.getKey(), entry.getValue());
+                    itemList.add(group);
+                    group.setExpanded(true);
+                    itemList.addAll(group.getComputers());
+                }
+
                 adapter.notifyDataSetChanged();
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "Lỗi khi tải dữ liệu: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi
+                Toast.makeText(getContext(), "Lỗi: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void onGroupClick(int position) {
+        // 1. Get the clicked group
+        Object item = itemList.get(position);
+        if (!(item instanceof ComputerGroup)) return; // Return if not a group
+        ComputerGroup group = (ComputerGroup) item;
+
+        // 2. Toggle the expansion state
+        group.setExpanded(!group.isExpanded());
+
+        // 3. Update the adapter
+        if (group.isExpanded()) {
+            // Expand: Add computers of this group below the group header
+            itemList.addAll(position + 1, group.getComputers());
+            adapter.notifyItemRangeInserted(position + 1, group.getComputers().size());
+        } else {
+            // Collapse: Remove computers of this group
+            int count = group.getComputers().size();
+            for (int i = 0; i < count; i++) {
+                itemList.remove(position + 1);
+            }
+            adapter.notifyItemRangeRemoved(position + 1, count);
+        }
     }
 }

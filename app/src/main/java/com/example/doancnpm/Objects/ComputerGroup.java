@@ -5,6 +5,7 @@ import java.util.List;
 public class ComputerGroup {
     private String groupName;
     private List<Computer> computers;
+
     private boolean isExpanded;
 
     public ComputerGroup(String groupName, List<Computer> computers) {

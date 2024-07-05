@@ -16,6 +16,8 @@ public class DanhSachMayTinhViewHolder extends RecyclerView.ViewHolder {
     public TextView RAM;
     public TextView Monitor;
     public TextView Price;
+    public TextView Status;
+    public TextView SeatLocation;
     public Button ReservationButton;
     public DanhSachMayTinhViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,5 +28,7 @@ public class DanhSachMayTinhViewHolder extends RecyclerView.ViewHolder {
         Monitor = itemView.findViewById(R.id.MonitorTextView);
         Price = itemView.findViewById(R.id.PriceTextView);
         ReservationButton = itemView.findViewById(R.id.btnReservation);
+        Status = itemView.findViewById(R.id.TinhTrangMayTextView);
+        SeatLocation = itemView.findViewById(R.id.GheMayTextView);
     }
 }

@@ -196,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/TinhTrangMayTextView1"
+                        android:id="@+id/TinhTrangMayTextView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -228,7 +228,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/TinhTrangMayTextView3"
+                    android:id="@+id/TinhTrangMayTextView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

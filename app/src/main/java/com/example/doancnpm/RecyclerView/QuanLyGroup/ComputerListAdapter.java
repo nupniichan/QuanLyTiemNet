@@ -1,10 +1,12 @@
 package com.example.doancnpm.RecyclerView.QuanLyGroup;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +17,7 @@ import com.example.doancnpm.QuanLy.Fragments.QuanLyMayTinh;
 import com.example.doancnpm.R;
 import com.example.doancnpm.RecyclerView.ViewHolder.QuanLyMayTinhViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -65,6 +68,7 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ComputerGroup group = (ComputerGroup) itemList.get(position);
                 ((ComputerGroupViewHolder) holder).bind(group);
 
+                // Xử lý đóng/mở nhóm
                 ((ComputerGroupViewHolder) holder).itemView.setOnClickListener(v -> {
                     int pos = holder.getAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION) {
@@ -83,16 +87,64 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         }
                     }
                 });
+
+                // Xử lý sự kiện khi chọn trạng thái
+                RadioGroup radioGroup = ((ComputerGroupViewHolder) holder).statusRadioGroup;
+                radioGroup.setOnCheckedChangeListener((viewGroup, checkedId) -> {
+                    if (checkedId == R.id.available_computers_radio) {
+                        // Lọc theo trạng thái máy
+                        filterComputersByStatus(position, "CON TRONG");
+                    } else if (checkedId == R.id.all_computers_radio) {
+                        // Hiển thị tất cả máy tính trong nhóm
+                        showAllComputersInGroup(position);
+                    }
+                });
                 break;
 
             case VIEW_TYPE_COMPUTER:
                 Computer computer = (Computer) itemList.get(position);
-                ((QuanLyMayTinhViewHolder) holder).bind(computer);
+
+                // Kiểm tra null trước khi bind
+                if (computer != null) {
+                    ((QuanLyMayTinhViewHolder) holder).bind(computer);
+                } else {
+                    // Xử lý trường hợp computer là null, ví dụ: log lỗi
+                    Log.e("ComputerListAdapter", "Computer at position " + position + " is null!");
+                }
 
                 ((QuanLyMayTinhViewHolder) holder).menuButton.setOnClickListener(view -> showPopupMenu(view, position));
-
                 break;
         }
+    }
+    private void filterComputersByStatus(int groupPosition, String status) {
+        ComputerGroup group = (ComputerGroup) itemList.get(groupPosition);
+        List<Computer> filteredComputers = new ArrayList<>();
+        for (Computer computer : group.getComputers()) {
+            if (computer.getStatus().equals(status)) {
+                filteredComputers.add(computer);
+            }
+        }
+        // Thay đổi ở đây
+        itemList = new ArrayList<>(itemList.subList(0, groupPosition + 1)); // giữ lại phần tử group
+        itemList.addAll(filteredComputers);
+        notifyDataSetChanged();
+    }
+
+    private void showAllComputersInGroup(int groupPosition) {
+        ComputerGroup group = (ComputerGroup) itemList.get(groupPosition);
+        // Thay đổi ở đây
+        itemList = new ArrayList<>(itemList.subList(0, groupPosition + 1));
+        itemList.addAll(group.getComputers());
+        notifyDataSetChanged();
+    }
+
+    // Phương thức cập nhật danh sách máy tính trong nhóm
+    private void updateComputersInGroup(int groupPosition, List<Computer> newComputers) {
+        int startIndex = groupPosition + 1;
+        int oldCount = getItemCount() - startIndex;
+        itemList.subList(startIndex, startIndex + oldCount).clear();
+        itemList.addAll(startIndex, newComputers);
+        notifyItemRangeChanged(startIndex, getItemCount() - startIndex);
     }
 
     private void showPopupMenu(View view, int position) {
