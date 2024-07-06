@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="Thông tin chuyển khoản"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewThongTinCK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Số tài khoản: 19038769992012"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewThongTinCK1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Ngân hàng: Techcombank"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewThongTinCK2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Tên người nhận: NGUYEN PHI QUOC BAO"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewThongTinCK3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Số tiền: "
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/buttonHoanTatCK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Hoàn tất" />
+
+</LinearLayout>

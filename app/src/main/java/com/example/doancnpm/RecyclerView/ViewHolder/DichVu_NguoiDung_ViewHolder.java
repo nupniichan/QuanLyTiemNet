@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.doancnpm.R;
 
-public class DanhSachDichVuViewHolder extends RecyclerView.ViewHolder {
+public class DichVu_NguoiDung_ViewHolder extends RecyclerView.ViewHolder {
     public TextView TenDichVu;
     public TextView ServiceName;
     public TextView LoaiDichVu;
@@ -19,7 +19,7 @@ public class DanhSachDichVuViewHolder extends RecyclerView.ViewHolder {
     public TextView MoTa;
     public ImageButton menuButton;
 
-    public DanhSachDichVuViewHolder(@NonNull View itemView) {
+    public DichVu_NguoiDung_ViewHolder(@NonNull View itemView) {
         super(itemView);
         TenDichVu = itemView.findViewById(R.id.TenDichVuTextView);
         ServiceName = itemView.findViewById(R.id.MoTaTextView);
