@@ -80,8 +80,12 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation ("com.airbnb.android:lottie:6.3.0")
+<<<<<<< HEAD
 
 
+=======
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    debugImplementation("com.squareup.picasso:picasso:2.71828")
+>>>>>>> 169216b5ccf65f72d0807c6799483ebd3f96fdb4
 }

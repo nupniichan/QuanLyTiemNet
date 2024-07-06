@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -32,19 +33,25 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DangNhap extends AppCompatActivity {
 
-    EditText edtUsername,edtPassword;
-    TextView txtSignUp;
+    private EditText edtUsername, edtPassword;
+    private TextView txtSignUp;
     private ProgressBar progressBar;
-    FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
 
+<<<<<<< HEAD
     CheckBox checkBox;
 
+=======
+    private static final String PREFS_NAME = "UserSession";
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+>>>>>>> 169216b5ccf65f72d0807c6799483ebd3f96fdb4
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_nhap);
 
+<<<<<<< HEAD
         edtUsername=findViewById(R.id.edtUsername);
         edtPassword=findViewById(R.id.edtPassword);
         progressBar=findViewById(R.id.progressBar);
@@ -67,19 +74,22 @@ public class DangNhap extends AppCompatActivity {
 
 
 
+=======
+        edtUsername = findViewById(R.id.edtUsername);
+        edtPassword = findViewById(R.id.edtPassword);
+        progressBar = findViewById(R.id.progressBar);
+        firebaseAuth = FirebaseAuth.getInstance();
+>>>>>>> 169216b5ccf65f72d0807c6799483ebd3f96fdb4
 
-        txtSignUp=findViewById(R.id.txtSignUp);
+        txtSignUp = findViewById(R.id.txtSignUp);
         txtSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DangNhap.this,DangKy.class);
+                Intent intent = new Intent(DangNhap.this, DangKy.class);
                 startActivity(intent);
                 finish();
             }
         });
-
-
-
 
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -87,73 +97,95 @@ public class DangNhap extends AppCompatActivity {
             public void onClick(View v) {
                 String txtUsername = edtUsername.getText().toString();
                 String txtPass = edtPassword.getText().toString();
-                if(TextUtils.isEmpty(txtUsername)){
-                    Toast.makeText(DangNhap.this,"vui lòng nhập email của ban",Toast.LENGTH_LONG).show();
-                    edtUsername.setError("yêu cầu nhập mật khẩu");
+                if (TextUtils.isEmpty(txtUsername)) {
+                    Toast.makeText(DangNhap.this, "Vui lòng nhập email của bạn", Toast.LENGTH_LONG).show();
+                    edtUsername.setError("Yêu cầu nhập email");
                     edtUsername.requestFocus();
-                }else if(!Patterns.EMAIL_ADDRESS.matcher(txtUsername).matches()){
-                    Toast.makeText(DangNhap.this,"Vui lòng nhập lại email",Toast.LENGTH_LONG).show();
-                    edtUsername.setError("Email của bạn không đúng");
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(txtUsername).matches()) {
+                    Toast.makeText(DangNhap.this, "Vui lòng nhập lại email", Toast.LENGTH_LONG).show();
+                    edtUsername.setError("Email không đúng định dạng");
                     edtUsername.requestFocus();
-                }
-                else if(TextUtils.isEmpty(txtPass)){
-                    Toast.makeText(DangNhap.this,"vui lòng nhập mật khẩu",Toast.LENGTH_LONG).show();
-                    edtPassword.setError("yêu cầu nhập mật khẩu");
+                } else if (TextUtils.isEmpty(txtPass)) {
+                    Toast.makeText(DangNhap.this, "Vui lòng nhập mật khẩu", Toast.LENGTH_LONG).show();
+                    edtPassword.setError("Yêu cầu nhập mật khẩu");
                     edtPassword.requestFocus();
-                }else {
-                    progressBar.setVisibility(View.GONE);
-                    loginUser(txtUsername,txtPass);
-                    
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    loginUser(txtUsername, txtPass);
                 }
             }
         });
 
+        // Kiểm tra session khi Activity được tạo
+        if (isUserLoggedIn()) {
+            navigateToTrangChu();
+        }
     }
 
     private void loginUser(String txtUsername, String txtPass) {
-        firebaseAuth.signInWithEmailAndPassword(txtUsername, txtPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+        firebaseAuth.signInWithEmailAndPassword(txtUsername, txtPass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Đăng nhập thành công
+                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                            firebaseDatabase.getReference().child("Users")
+                                    .child(firebaseAuth.getUid())
+                                    .child("userType")
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            int userType = snapshot.getValue(Integer.class);
+                                            if (userType == 0) {
+                                                // Lưu session
+                                                saveUserSession();
+                                                Intent intent = new Intent(DangNhap.this, TrangChu.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                                            } else if (userType == 1) {
+                                                // Lưu session
+                                                saveUserSession();
+                                                Intent intent = new Intent(DangNhap.this, ChuTiemTrangChu.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                                            }
+                                        }
 
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    firebaseDatabase.getReference().child("Registered Users").child(firebaseAuth.getUid()).child("userType").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            int userType = snapshot.getValue(Integer.class);
-                            if (userType == 0) {
-                                Intent intent = new Intent(DangNhap.this, TrangChu.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            // Xử lý lỗi
+                                            Toast.makeText(DangNhap.this, "Đã xảy ra lỗi", Toast.LENGTH_LONG).show();
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+                                    });
 
-                                startActivity(intent);
-                            }
-                            if (userType == 1) {
-                                Intent intent = new Intent(DangNhap.this, ChuTiemTrangChu.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                                startActivity(intent);
-                            }
-
-
+                        } else {
+                            // Xử lý đăng nhập thất bại
+                            Toast.makeText(DangNhap.this, "Sai thông tin đăng nhập", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
                         }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    }
+                });
+    }
 
 
+    private void saveUserSession() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_IS_LOGGED_IN, true);
+        editor.apply();
+    }
 
-                }else
+    private boolean isUserLoggedIn() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
+    }
 
-                {
-                    Toast.makeText(DangNhap.this, "Đã xảy ra lỗi", Toast.LENGTH_LONG).show();
-
-
-                }
-                progressBar.setVisibility(View.GONE);
-            }
-         });
+    private void navigateToTrangChu() {
+        Intent intent = new Intent(DangNhap.this, TrangChu.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

@@ -6,13 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.doancnpm.QuanLy.ChuTiemTrangChu;
 import com.example.doancnpm.databinding.TrangChuBinding;
 import com.example.doancnpm.user.Fragments.DichVuFragment;
 import com.example.doancnpm.user.Fragments.MayTinhFragment;
@@ -21,7 +18,10 @@ import com.example.doancnpm.user.Fragments.TrangChuFragment;
 import com.example.doancnpm.user.ThongTinCaNhan;
 
 public class TrangChu extends AppCompatActivity {
-    TrangChuBinding binding;
+    private TrangChuBinding binding;
+
+    private static final String PREFS_NAME = "UserSession";
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +36,13 @@ public class TrangChu extends AppCompatActivity {
 
         binding.btmNvbarTrangchu.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.btm_nvbar_home_trangchu){
+            if (itemId == R.id.btm_nvbar_home_trangchu) {
                 replaceFragment(new TrangChuFragment());
-            }
-            else if (itemId == R.id.btm_nvbar_computer_trangchu){
+            } else if (itemId == R.id.btm_nvbar_computer_trangchu) {
                 replaceFragment(new MayTinhFragment());
-            }
-            else if (itemId == R.id.btm_nvbar_serivce_trangchu){
+            } else if (itemId == R.id.btm_nvbar_serivce_trangchu) {
                 replaceFragment(new DichVuFragment());
-            }
-            else if (itemId == R.id.btm_nvbar_options_trangchu){
+            } else if (itemId == R.id.btm_nvbar_options_trangchu) {
                 replaceFragment(new SettingFragment());
             }
             return true;
@@ -62,11 +59,16 @@ public class TrangChu extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.ToolBarTrangChu_Person) {
+<<<<<<< HEAD
             // Toast.makeText(this, "Move to login page", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(getApplicationContext(), ThongTinCaNhan.class);
             startActivity(i);
+=======
+            // Xử lý khác nếu cần
+            return true;
+>>>>>>> 169216b5ccf65f72d0807c6799483ebd3f96fdb4
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -74,5 +76,18 @@ public class TrangChu extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.TrangChuFrameLayoutContainter, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        clearUserSession();
+    }
+
+    private void clearUserSession() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(KEY_IS_LOGGED_IN);
+        editor.apply();
     }
 }

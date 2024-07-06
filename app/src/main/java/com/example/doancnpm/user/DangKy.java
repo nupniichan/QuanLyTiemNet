@@ -38,8 +38,6 @@ public class DangKy extends AppCompatActivity {
     private RadioButton radioButtonGenderSelected;
     private  static  final String TAG="DangKyActivity";
     Button btnDK;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,9 +148,6 @@ public class DangKy extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     DangKyUser(txtHovaTen,txtEmail,txtNgaySinh,txtSDT,txtMatKhau,txtXNMatKhau,txtDiaChi,txtCCCD,txtGioiTinh);
                 }
-
-
-
             }
         });
     }
@@ -170,8 +165,8 @@ public class DangKy extends AppCompatActivity {
 
 
                 //nhap du lieu vao trong realtime database
-                ThongTinNguoiDungAdapter nhapthongtin= new ThongTinNguoiDungAdapter(txtEmail,txtNgaySinh,txtGioiTinh,txtSDT,txtMatKhau,txtCCCD,txtDiaChi,0);
-                DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
+                ThongTinNguoiDungAdapter nhapthongtin= new ThongTinNguoiDungAdapter(txtEmail,txtNgaySinh,txtGioiTinh,txtSDT,txtMatKhau,txtCCCD,txtDiaChi,0,0.0, "Thành viên");
+                DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Users");
 
                 referenceProfile.child(firebaseUser.getUid()).setValue(nhapthongtin).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -192,28 +187,8 @@ public class DangKy extends AppCompatActivity {
 
                         }
                         progressBar.setVisibility(View.GONE);
-
-
-
-
-
-
-
-
-
-
                     }
                 });
-
-
-
-
-
-
-
-
-
-
             }else {
                 try {
                     throw task.getException();

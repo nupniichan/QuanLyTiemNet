@@ -16,10 +16,26 @@
         android:theme="@style/Theme.DoAnCNPM"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".user.CapNhatThongTinCN"
             android:exported="false" />
         <activity
             android:name=".user.ThongTinCaNhan"
+=======
+            android:name=".user.ReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.TrangChuDaDangNhap"
+            android:exported="false" />
+        <activity
+            android:name=".user.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuanLy.PendingOrdersActivity"
+>>>>>>> 169216b5ccf65f72d0807c6799483ebd3f96fdb4
             android:exported="false" />
         <activity
             android:name=".user.DangNhap"

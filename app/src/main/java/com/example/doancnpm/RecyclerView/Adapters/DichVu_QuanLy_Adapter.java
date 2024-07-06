@@ -1,30 +1,22 @@
 package com.example.doancnpm.RecyclerView.Adapters;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.doancnpm.Objects.Service;
 import com.example.doancnpm.R;
-import com.example.doancnpm.RecyclerView.ViewHolder.QuanLyDanhSachDichVuViewHolder;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.doancnpm.RecyclerView.ViewHolder.DichVu_QuanLy_ViewHolder;
+
 import java.util.List;
 
-public class QuanLyDanhSachDichVuAdapter extends RecyclerView.Adapter<QuanLyDanhSachDichVuViewHolder> {
+public class DichVu_QuanLy_Adapter extends RecyclerView.Adapter<DichVu_QuanLy_ViewHolder> {
 
     private static final String TAG = "ServiceAdapter";
     private Activity activityContext;
@@ -41,19 +33,19 @@ public class QuanLyDanhSachDichVuAdapter extends RecyclerView.Adapter<QuanLyDanh
         this.onItemClickListener = listener;
     }
 
-    public QuanLyDanhSachDichVuAdapter(Activity activityContext, List<Service> services) {
+    public DichVu_QuanLy_Adapter(Activity activityContext, List<Service> services) {
         this.activityContext = activityContext;
         this.services = services;
     }
 
     @NonNull
     @Override
-    public QuanLyDanhSachDichVuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new QuanLyDanhSachDichVuViewHolder(LayoutInflater.from(activityContext).inflate(R.layout.quanly_danhsachdichvu_view, parent, false));
+    public DichVu_QuanLy_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new DichVu_QuanLy_ViewHolder(LayoutInflater.from(activityContext).inflate(R.layout.quanly_danhsachdichvu_view, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QuanLyDanhSachDichVuViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DichVu_QuanLy_ViewHolder holder, int position) {
         Service service = services.get(position);
 
         holder.TenDichVu.setText(service.getServiceName());

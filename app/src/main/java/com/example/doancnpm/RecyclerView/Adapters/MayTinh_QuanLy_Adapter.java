@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.doancnpm.Objects.Computer;
 import com.example.doancnpm.R;
-import com.example.doancnpm.RecyclerView.ViewHolder.QuanLyMayTinhViewHolder;
+import com.example.doancnpm.RecyclerView.ViewHolder.MayTinh_QuanLy_ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MayTinh_QuanLy_Adapter extends RecyclerView.Adapter<QuanLyMayTinhViewHolder> {
+public class MayTinh_QuanLy_Adapter extends RecyclerView.Adapter<MayTinh_QuanLy_ViewHolder> {
 
     Context context;
     List<Computer> computers; // Danh sách đầy đủ
@@ -39,12 +39,12 @@ public class MayTinh_QuanLy_Adapter extends RecyclerView.Adapter<QuanLyMayTinhVi
 
     @NonNull
     @Override
-    public QuanLyMayTinhViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new QuanLyMayTinhViewHolder(LayoutInflater.from(context).inflate(R.layout.quanly_danhsachmaytinh_view, parent, false));
+    public MayTinh_QuanLy_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MayTinh_QuanLy_ViewHolder(LayoutInflater.from(context).inflate(R.layout.quanly_danhsachmaytinh_view, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QuanLyMayTinhViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MayTinh_QuanLy_ViewHolder holder, int position) {
         // Sử dụng filteredComputers thay vì computers
         Computer computer = filteredComputers.get(position);
         holder.TenMayTinh.setText(computer.getName());
