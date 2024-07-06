@@ -15,7 +15,7 @@ import com.example.doancnpm.Objects.Computer;
 import com.example.doancnpm.Objects.ComputerGroup;
 import com.example.doancnpm.QuanLy.Fragments.QuanLyMayTinh;
 import com.example.doancnpm.R;
-import com.example.doancnpm.RecyclerView.ViewHolder.QuanLyMayTinhViewHolder;
+import com.example.doancnpm.RecyclerView.ViewHolder.MayTinh_QuanLy_ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 return new ComputerGroupViewHolder(groupView);
             case VIEW_TYPE_COMPUTER:
                 View computerView = inflater.inflate(R.layout.quanly_danhsachmaytinh_view, parent, false);
-                return new QuanLyMayTinhViewHolder(computerView);
+                return new MayTinh_QuanLy_ViewHolder(computerView);
             default:
                 throw new IllegalArgumentException("Invalid view type");
         }
@@ -106,13 +106,13 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 // Kiểm tra null trước khi bind
                 if (computer != null) {
-                    ((QuanLyMayTinhViewHolder) holder).bind(computer);
+                    ((MayTinh_QuanLy_ViewHolder) holder).bind(computer);
                 } else {
                     // Xử lý trường hợp computer là null, ví dụ: log lỗi
                     Log.e("ComputerListAdapter", "Computer at position " + position + " is null!");
                 }
 
-                ((QuanLyMayTinhViewHolder) holder).menuButton.setOnClickListener(view -> showPopupMenu(view, position));
+                ((MayTinh_QuanLy_ViewHolder) holder).menuButton.setOnClickListener(view -> showPopupMenu(view, position));
                 break;
         }
     }

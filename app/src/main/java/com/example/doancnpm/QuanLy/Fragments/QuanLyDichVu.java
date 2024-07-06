@@ -31,11 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.doancnpm.Objects.Service;
 import com.example.doancnpm.R;
-import com.example.doancnpm.RecyclerView.Adapters.QuanLyDanhSachDichVuAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.doancnpm.RecyclerView.Adapters.DichVu_QuanLy_Adapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,10 +46,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class QuanLyDichVu extends Fragment implements QuanLyDanhSachDichVuAdapter.OnItemClickListener {
+public class QuanLyDichVu extends Fragment implements DichVu_QuanLy_Adapter.OnItemClickListener {
     private List<Service> services = new ArrayList<>();
     private RecyclerView recyclerView;
-    private QuanLyDanhSachDichVuAdapter adapter;
+    private DichVu_QuanLy_Adapter adapter;
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView selectedImageView;
     private Bitmap selectedBitmap;
@@ -70,7 +66,7 @@ public class QuanLyDichVu extends Fragment implements QuanLyDanhSachDichVuAdapte
         recyclerView = view.findViewById(R.id.QuanLyDichVuRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new QuanLyDanhSachDichVuAdapter(getActivity(), services);
+        adapter = new DichVu_QuanLy_Adapter(getActivity(), services);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
 

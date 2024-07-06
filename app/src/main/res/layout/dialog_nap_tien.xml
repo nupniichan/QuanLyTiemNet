@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nạp Tiền"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextSoTien"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập số tiền"
+        android:inputType="number"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn phương thức thanh toán:"
+        android:layout_marginBottom="8dp"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroupPhuongThuc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radioButtonQR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quét mã QR" />
+
+        <RadioButton
+            android:id="@+id/radioButtonChuyenKhoan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chuyển khoản" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/buttonXacNhan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tiếp tục" />
+
+        <Button
+            android:id="@+id/buttonHuy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hủy" />
+    </LinearLayout>
+
+</LinearLayout>

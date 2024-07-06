@@ -36,7 +36,7 @@ public class MayTinhFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.DanhSachMayTinhRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new MayTinh_NguoiDung_Adapter(getActivity().getApplicationContext(), itemList, this::onGroupClick);
+        adapter = new MayTinh_NguoiDung_Adapter(getContext(), itemList, this::onGroupClick);
         recyclerView.setAdapter(adapter);
 
         fetchComputersFromFirebase();
