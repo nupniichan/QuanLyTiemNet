@@ -7,14 +7,6 @@ public class ThongTinNguoiDungAdapter {
         return Email;
     }
 
-<<<<<<< HEAD
-    public ThongTinNguoiDungAdapter(){
-
-    }
-
-
-    public ThongTinNguoiDungAdapter( String Email,String NgaySinh, String GioiTinh, String SDT,String MatKhau, String CCCD, String DiaChi, int userType) {
-=======
     public void setEmail(String email) {
         Email = email;
     }
@@ -104,7 +96,6 @@ public class ThongTinNguoiDungAdapter {
     private int userType;
 
     public ThongTinNguoiDungAdapter( String Email,String NgaySinh, String GioiTinh, String SDT,String MatKhau, String CCCD, String DiaChi, int userType, Double SoDuTK, String ThuHang) {
->>>>>>> 169216b5ccf65f72d0807c6799483ebd3f96fdb4
         this.Email=Email;
         this.NgaySinh = NgaySinh;
         this.GioiTinh = GioiTinh;

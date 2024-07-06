@@ -15,7 +15,6 @@ import com.example.doancnpm.user.Fragments.DichVuFragment;
 import com.example.doancnpm.user.Fragments.MayTinhFragment;
 import com.example.doancnpm.user.Fragments.SettingFragment;
 import com.example.doancnpm.user.Fragments.TrangChuFragment;
-import com.example.doancnpm.user.ThongTinCaNhan;
 
 public class TrangChu extends AppCompatActivity {
     private TrangChuBinding binding;
@@ -59,14 +58,8 @@ public class TrangChu extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.ToolBarTrangChu_Person) {
-<<<<<<< HEAD
-            // Toast.makeText(this, "Move to login page", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(), ThongTinCaNhan.class);
-            startActivity(i);
-=======
             // Xử lý khác nếu cần
             return true;
->>>>>>> 169216b5ccf65f72d0807c6799483ebd3f96fdb4
         }
         return super.onOptionsItemSelected(item);
     }
