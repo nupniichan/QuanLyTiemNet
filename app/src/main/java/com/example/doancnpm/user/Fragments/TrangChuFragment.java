@@ -2,6 +2,7 @@ package com.example.doancnpm.user.Fragments;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class TrangChuFragment extends Fragment {
 
@@ -35,6 +37,7 @@ public class TrangChuFragment extends Fragment {
     private DatabaseReference usersRef;
     private Button napTienButton;
     private double soDuHienTai;
+    private CountDownTimer countDownTimer; // Sử dụng CountDownTimer
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -178,18 +181,39 @@ public class TrangChuFragment extends Fragment {
         builderQR.setView(dialogViewQR);
 
         ImageView imageViewQR = dialogViewQR.findViewById(R.id.imageViewQR);
+        TextView textViewThoiGianConLaiQR = dialogViewQR.findViewById(R.id.textViewThoiGianConLaiQR);
         Button buttonHoanTat = dialogViewQR.findViewById(R.id.buttonHoanTat);
+
         // TODO: Thay thế bằng hình ảnh mã QR thực tế
         imageViewQR.setImageResource(R.drawable.maqr);
 
         AlertDialog dialogQR = builderQR.create();
         dialogQR.show();
 
+        // Bắt đầu đếm ngược
+        countDownTimer = new CountDownTimer(10 * 60 * 1000, 1000) { // 10 phút = 10 * 60 * 1000 milliseconds
+
+            public void onTick(long millisUntilFinished) {
+                String thoiGian = String.format(Locale.getDefault(), "%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
+                textViewThoiGianConLaiQR.setText("Thời gian còn lại: " + thoiGian);
+            }
+
+            public void onFinish() {
+                capNhatGiaoDich(giaoDichId, "Thất bại", soTien);
+                dialogQR.dismiss();
+                Toast.makeText(getContext(), "Giao dịch hết hạn!", Toast.LENGTH_SHORT).show();
+            }
+        }.start();
+
         buttonHoanTat.setOnClickListener(v -> {
+            countDownTimer.cancel(); // Hủy đếm ngược
             capNhatGiaoDich(giaoDichId, "Thành công", soTien);
             dialogQR.dismiss();
         });
     }
+
 
     private void hienThiDialogChuyenKhoan(double soTien, String giaoDichId) {
         AlertDialog.Builder builderCK = new AlertDialog.Builder(getContext());
@@ -200,6 +224,7 @@ public class TrangChuFragment extends Fragment {
         TextView textViewThongTinCK1 = dialogViewCK.findViewById(R.id.textViewThongTinCK1);
         TextView textViewThongTinCK2 = dialogViewCK.findViewById(R.id.textViewThongTinCK2);
         TextView textViewSoTienChuyenKhoan = dialogViewCK.findViewById(R.id.textViewThongTinCK3);
+        TextView textViewThoiGianConLaiCK = dialogViewCK.findViewById(R.id.textViewThoiGianConLaiCK);
         Button buttonHoanTatCK = dialogViewCK.findViewById(R.id.buttonHoanTatCK);
 
         textViewSoTienChuyenKhoan.setText("Số tiền: " + String.format("%,.0f", soTien) + " VND");
@@ -207,11 +232,30 @@ public class TrangChuFragment extends Fragment {
         AlertDialog dialogCK = builderCK.create();
         dialogCK.show();
 
+        // Bắt đầu đếm ngược
+        countDownTimer = new CountDownTimer(10 * 60 * 1000, 1000) { // 10 phút = 10 * 60 * 1000 milliseconds
+
+            public void onTick(long millisUntilFinished) {
+                String thoiGian = String.format(Locale.getDefault(), "%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
+                textViewThoiGianConLaiCK.setText("Thời gian còn lại: " + thoiGian);
+            }
+
+            public void onFinish() {
+                capNhatGiaoDich(giaoDichId, "Thất bại", soTien);
+                dialogCK.dismiss();
+                Toast.makeText(getContext(), "Giao dịch hết hạn!", Toast.LENGTH_SHORT).show();
+            }
+        }.start();
+
         buttonHoanTatCK.setOnClickListener(v -> {
+            countDownTimer.cancel(); // Hủy đếm ngược
             capNhatGiaoDich(giaoDichId, "Thành công", soTien);
             dialogCK.dismiss();
         });
     }
+
 
     private void capNhatGiaoDich(String giaoDichId, String trangThaiMoi, double soTien) {
         String userId = currentUser.getUid();

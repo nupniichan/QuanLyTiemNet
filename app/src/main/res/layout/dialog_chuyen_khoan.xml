@@ -45,6 +45,14 @@
         android:layout_marginBottom="16dp"
         android:text="Số tiền: "
         android:textSize="20sp" />
+    <TextView
+        android:id="@+id/textViewThoiGianConLaiCK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="Thời gian còn lại: 10:00"
+        android:textSize="18sp" />
     <Button
         android:id="@+id/buttonHoanTatCK"
         android:layout_width="wrap_content"
