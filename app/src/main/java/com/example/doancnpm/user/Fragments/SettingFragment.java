@@ -1,87 +1,80 @@
 package com.example.doancnpm.user.Fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.doancnpm.R;
-import com.example.doancnpm.user.DangNhap;
-import com.example.doancnpm.user.TrangChuChuaDangNhap;
-
+import com.example.doancnpm.user.ChangePasswordActivity;
+import com.example.doancnpm.user.FeedbackActivity;
+import com.example.doancnpm.user.ReportActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingFragment extends Fragment {
-View root;
-TextView txtDX;
 
+    private ListView listView;
+    private Button btnLogout;
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SettingFragment() {
-        // Required empty public constructor
-    }
-
-
-    // TODO: Rename and change types and number of parameters
-    public static SettingFragment newInstance(String param1, String param2) {
-        SettingFragment fragment = new SettingFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
+        listView = view.findViewById(R.id.listViewSettings);
+        btnLogout = view.findViewById(R.id.txtDX);
 
+        String[] settingsOptions = {"Thông tin tài khoản", "Đổi mật khẩu", "Nạp tiền", "Góp ý", "Tố cáo", "Thông tin phiên bản"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, settingsOptions);
+        listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        // Handle Thông tin tài khoản
+                        break;
+                    case 1:
+                        Intent intentChangePassword = new Intent(getActivity(), ChangePasswordActivity.class);
+                        startActivity(intentChangePassword);
+                        break;
+                    case 2:
+                        // Handle Nạp tiền
+                        break;
+                    case 3:
+                        Intent intentFeedback = new Intent(getActivity(), FeedbackActivity.class);
+                        startActivity(intentFeedback);
+                        break;
+                    case 4:
+                        Intent intentReport = new Intent(getActivity(), ReportActivity.class);
+                        startActivity(intentReport);
+                        break;
+                    case 5:
+                        // Handle Thông tin phiên bản
+                        break;
+                }
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                getActivity().finish();
+            }
+        });
+
+        return view;
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-    root=inflater.inflate(R.layout.fragment_setting,container,false);
-    txtDX = root.findViewById(R.id.txtDX);
-    txtDX.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            dangxuat();
-        }
-    });
-
-        return root;
-    }
-
-    private void dangxuat() {
-        Toast.makeText(getActivity(),"Đẵ đăng xuất",Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(getActivity(), TrangChuChuaDangNhap.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);             startActivity(intent);
-        startActivity(intent);
-    }
-
-
 }

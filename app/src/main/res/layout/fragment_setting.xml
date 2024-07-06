@@ -10,24 +10,23 @@
         android:layout_height="wrap_content"
         android:src="@drawable/chinoavatar"
         android:layout_gravity="center"
-        android:layout_marginBottom="200dp"
-        />
+        android:layout_marginBottom="200dp"/>
+
+    <ListView
+        android:id="@+id/listViewSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="150dp" />
 
     <Button
         android:id="@+id/txtDX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-
-        android:layout_marginStart="139dp"
-        android:layout_marginBottom="100dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="50dp"
         android:backgroundTint="@color/Gray"
         android:drawableLeft="@drawable/icon_logout"
-        android:text="Đăng xuất"
-
-        />
-
-
-
+        android:text="Đăng xuất"/>
 
 </FrameLayout>
