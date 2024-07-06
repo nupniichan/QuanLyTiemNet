@@ -1,8 +1,10 @@
 package com.example.doancnpm.user;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
         buttonChangePassword = findViewById(R.id.buttonChangePassword);
 
         buttonChangePassword.setOnClickListener(v -> changePassword());
+
+        ImageButton buttonBack = findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Quay lại màn hình trước
+            }
+        });
     }
 
     private void changePassword() {

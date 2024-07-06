@@ -28,6 +28,9 @@
             android:name=".user.ChangePasswordActivity"
             android:exported="false" />
         <activity
+            android:name=".QuanLy.PendingOrdersActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.DangNhap"
             android:exported="false"
             android:label="@string/title_activity_login"

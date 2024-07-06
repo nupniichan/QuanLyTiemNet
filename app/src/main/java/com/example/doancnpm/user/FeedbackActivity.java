@@ -1,9 +1,11 @@
 package com.example.doancnpm.user;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,7 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
+        // Initialize UI elements
         editTextName = findViewById(R.id.editTextName);
         editTextFeedback = findViewById(R.id.editTextFeedback);
         textViewPhone = findViewById(R.id.textViewPhone);
@@ -44,19 +47,30 @@ public class FeedbackActivity extends AppCompatActivity {
         textViewDate = findViewById(R.id.textViewDate);
         checkBox = findViewById(R.id.checkBox);
         buttonSubmit = findViewById(R.id.buttonSubmit);
+        ImageButton buttonBack = findViewById(R.id.buttonBack);
 
+        // Set up Firebase
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        // Set up back button click listener
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Go back to the previous screen
+            }
+        });
+
+        // Set user data if user is logged in
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             textViewEmail.setText(currentUser.getEmail());
 
-            mDatabase.child("users").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            mDatabase.child("Users").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        String phone = snapshot.child("phone").getValue(String.class);
+                        String phone = snapshot.child("sdt").getValue(String.class);
                         textViewPhone.setText(phone);
                     }
                 }
@@ -68,9 +82,11 @@ public class FeedbackActivity extends AppCompatActivity {
             });
         }
 
+        // Set current date
         String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         textViewDate.setText(currentDate);
 
+        // Set submit button click listener
         buttonSubmit.setOnClickListener(view -> {
             String name = editTextName.getText().toString();
             String feedback = editTextFeedback.getText().toString();

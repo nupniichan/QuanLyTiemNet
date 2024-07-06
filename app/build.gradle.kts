@@ -82,4 +82,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation ("com.airbnb.android:lottie:6.3.0")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    debugImplementation("com.squareup.picasso:picasso:2.71828")
 }

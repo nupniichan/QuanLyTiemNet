@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 
@@ -33,6 +37,7 @@ public class ReportActivity extends AppCompatActivity {
     private EditText edtName, edtPhone, edtEmail, edtReportDate, edtContent;
     private CheckBox checkBoxConfirm;
     private Button btnSubmitReport, btnSelectImage;
+    private ImageView imageViewSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,11 @@ public class ReportActivity extends AppCompatActivity {
         checkBoxConfirm = findViewById(R.id.checkBoxConfirm);
         btnSubmitReport = findViewById(R.id.btnSubmitReport);
         btnSelectImage = findViewById(R.id.btnSelectImage);
+        imageViewSelected = findViewById(R.id.imageViewSelected);
+        ImageButton buttonBack = findViewById(R.id.buttonBack);
+
+        // Set up back button click listener
+        buttonBack.setOnClickListener(v -> finish()); // Go back to the previous screen
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -95,6 +105,8 @@ public class ReportActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
+            imageViewSelected.setVisibility(View.VISIBLE);
+            Picasso.get().load(imageUri).into(imageViewSelected);
         }
     }
 
@@ -110,11 +122,10 @@ public class ReportActivity extends AppCompatActivity {
             return;
         }
 
-        // Assuming you have a Reports node in your Firebase database
         DatabaseReference reportsRef = FirebaseDatabase.getInstance().getReference("Reports");
         String reportId = reportsRef.push().getKey();
 
-        Report report = new Report(reportId, name, phone, email, reportDate, content, imageUri.toString());
+        Report report = new Report(reportId, name, phone, email, reportDate, content, imageUri != null ? imageUri.toString() : null);
         reportsRef.child(reportId).setValue(report)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

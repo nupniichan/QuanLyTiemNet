@@ -37,7 +37,7 @@ public class TrangChuFragment extends Fragment {
     private DatabaseReference usersRef;
     private Button napTienButton;
     private double soDuHienTai;
-    private CountDownTimer countDownTimer; // Sử dụng CountDownTimer
+    private CountDownTimer countDownTimer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
