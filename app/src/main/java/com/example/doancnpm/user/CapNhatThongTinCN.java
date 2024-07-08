@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -17,7 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.doancnpm.R;
-import com.example.doancnpm.RecyclerView.Adapters.ThongTinNguoiDungAdapter;
+import com.example.doancnpm.Objects.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +38,9 @@ public class CapNhatThongTinCN extends AppCompatActivity {
     private  String fullName,DoB,Phone,Gender,CCCD,Address;
     private FirebaseAuth firebaseAuth;
     private ProgressBar progressBar;
-    DatePickerDialog picker;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,136 +77,143 @@ public class CapNhatThongTinCN extends AppCompatActivity {
     }
 
     private void updateProfile(FirebaseUser firebaseUser) {
-        int selectedGenderID= RadiogroupGender.getCheckedRadioButtonId();
-        radioButtonGenderSelected =findViewById(selectedGenderID);
+        int selectedGenderID = RadiogroupGender.getCheckedRadioButtonId();
+        radioButtonGenderSelected = findViewById(selectedGenderID);
         String mobileRegex = "[0][0-9]{9}";
         Matcher mobileMatcher;
-        Pattern mobilePattern= Pattern.compile(mobileRegex);
+        Pattern mobilePattern = Pattern.compile(mobileRegex);
         mobileMatcher = mobilePattern.matcher(Phone);
 
 
         //kiem tra du lieu
 
-        if(TextUtils.isEmpty(fullName)){
-            Toast.makeText(this,"vui lòng nhập đầy đủ họ và tên !!",Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(fullName)) {
+            Toast.makeText(this, "vui lòng nhập đầy đủ họ và tên !!", Toast.LENGTH_LONG).show();
             edtUpdateName.setError("không được bỏ trống ");
             return;
 
 
-
-        }
-
-        else  if(TextUtils.isEmpty(Phone)){
-            Toast.makeText(this,"vui lòng nhập số điện thoại  !!",Toast.LENGTH_LONG).show();
+        } else if (TextUtils.isEmpty(Phone)) {
+            Toast.makeText(this, "vui lòng nhập số điện thoại  !!", Toast.LENGTH_LONG).show();
             edtUpdatePhone.setError("không được bỏ trống ");
             return;
-        }else  if(Phone.length()!=10){
-            Toast.makeText(this,"vui lòng nhập số điện thoại  !!",Toast.LENGTH_LONG).show();
+        } else if (Phone.length() != 10) {
+            Toast.makeText(this, "vui lòng nhập số điện thoại  !!", Toast.LENGTH_LONG).show();
             edtUpdatePhone.setError("số điện thoại phải đủ 10 số ");
             return;
-        }
-        else if(!mobileMatcher.find()){
-            Toast.makeText(this,"vui lòng nhập số điện thoại !!",Toast.LENGTH_LONG).show();
+        } else if (!mobileMatcher.find()) {
+            Toast.makeText(this, "vui lòng nhập số điện thoại !!", Toast.LENGTH_LONG).show();
             edtUpdatePhone.setError("vui lòng xem lại số điện thoại");
             return;
-        }
-
-
-
-        else  if(TextUtils.isEmpty(DoB)){
-            Toast.makeText(this,"vui lòng nhập ngày sinh !!",Toast.LENGTH_LONG).show();
+        } else if (TextUtils.isEmpty(DoB)) {
+            Toast.makeText(this, "vui lòng nhập ngày sinh !!", Toast.LENGTH_LONG).show();
             edtUpdateDoB.setError("không được bỏ trống ");
             return;
-        }
-
-
-        else  if(RadiogroupGender.getCheckedRadioButtonId()==-1){
-            Toast.makeText(this,"vui lòng chọn giới tính của bạn !!",Toast.LENGTH_LONG).show();
+        } else if (RadiogroupGender.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "vui lòng chọn giới tính của bạn !!", Toast.LENGTH_LONG).show();
 
             return;
-        }else {
-            Gender=radioButtonGenderSelected.getText().toString();
-            fullName=edtUpdateName.getText().toString();
-            DoB=edtUpdateDoB.getText().toString();
-            Phone=edtUpdatePhone.getText().toString();
-            CCCD=edtUpdateCCCD.getText().toString();
-            Address=edtUpdateAddress.getText().toString();
+        } else {
+            Gender = radioButtonGenderSelected.getText().toString();
+            fullName = edtUpdateName.getText().toString();
+            DoB = edtUpdateDoB.getText().toString();
+            Phone = edtUpdatePhone.getText().toString();
+            CCCD = edtUpdateCCCD.getText().toString();
+            Address = edtUpdateAddress.getText().toString();
 
-            ThongTinNguoiDungAdapter readWriteUserDetail = new ThongTinNguoiDungAdapter(firebaseUser.getEmail(),DoB,Gender,Phone,"",CCCD,Address,0);
-
-
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Register Users");
-
+            // Lấy dữ liệu người dùng hiện tại từ Firebase
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
             String IDuser = firebaseUser.getUid();
-            progressBar.setVisibility(View.VISIBLE);
-            reference.child(IDuser).setValue(readWriteUserDetail).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            reference.child(IDuser).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        Users u = snapshot.getValue(Users.class);
+                        if (u != null) {
+                            String Matkhau = u.getMatKhau();
+                            double soDuTKHienTai = u.getSoDuTK();
+                            String thuHang = u.getThuHang();
 
+                            // Cập nhật các thông tin khác của người dùng
+                            Users readWriteUserDetail = new Users(
+                                    firebaseUser.getEmail(),
+                                    DoB,
+                                    Gender,
+                                    Phone,
+                                    Matkhau,
+                                    CCCD,
+                                    Address,
+                                    0,
+                                    soDuTKHienTai,
+                                    thuHang
+                            );
 
-                    if(task.isSuccessful()){
-                        UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(fullName).build();
-                        firebaseUser.updateProfile(userProfileChangeRequest);
+                            // Cập nhật thông tin người dùng trong Firebase
+                            reference.child(IDuser).setValue(readWriteUserDetail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(fullName).build();
+                                        firebaseUser.updateProfile(userProfileChangeRequest);
 
-                        Toast.makeText(CapNhatThongTinCN.this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(CapNhatThongTinCN.this,ThongTinCaNhan.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-
-                    }
-                    else {
-
-                        try {
-                            throw task.getException();
-
-                        }catch (Exception e){
-                            Toast.makeText(CapNhatThongTinCN.this,e.getMessage(), Toast.LENGTH_SHORT).show();
-
+                                        Toast.makeText(CapNhatThongTinCN.this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(CapNhatThongTinCN.this, ThongTinCaNhan.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        try {
+                                            throw task.getException();
+                                        } catch (Exception e) {
+                                            Toast.makeText(CapNhatThongTinCN.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            });
+                            progressBar.setVisibility(View.VISIBLE);
+                        } else {
+                            Toast.makeText(CapNhatThongTinCN.this, "Không thể lấy dữ liệu người dùng", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Toast.makeText(CapNhatThongTinCN.this, "Người dùng không tồn tại", Toast.LENGTH_SHORT).show();
                     }
-                    progressBar.setVisibility(View.GONE);
+                }
 
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Toast.makeText(CapNhatThongTinCN.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 
 
-
-            progressBar.setVisibility(View.VISIBLE);
-
-
-
         }
-
     }
 
-
-
-
-
-    private void showProfile(FirebaseUser firebaseUser) {
+            private void showProfile(FirebaseUser firebaseUser) {
         String userID = firebaseUser.getUid();
 
 
         //lấy đối tượng từ trong firebase tên là Register
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         progressBar.setVisibility(View.VISIBLE);
 
         databaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ThongTinNguoiDungAdapter readWriteUserDetail = snapshot.getValue(ThongTinNguoiDungAdapter.class);
+                Users readWriteUserDetail = snapshot.getValue(Users.class);
                 if(readWriteUserDetail!=null){
                     fullName= firebaseUser.getDisplayName();
 
-                    DoB = readWriteUserDetail.NgaySinh;
-                    Gender = readWriteUserDetail.GioiTinh;
-                    Phone = readWriteUserDetail.SDT;
-                    CCCD = readWriteUserDetail.CCCD;
-                    Address = readWriteUserDetail.DiaChi;
+                    DoB = readWriteUserDetail.getNgaySinh();
+                    Gender = readWriteUserDetail.getGioiTinh();
+                    Phone = readWriteUserDetail.getSDT();
+                    CCCD = readWriteUserDetail.getCCCD();
+                    Address = readWriteUserDetail.getDiaChi();
 
 
 

@@ -39,6 +39,14 @@
             android:name=".QuanLy.ChuTiemTrangChu"
             android:exported="false" />
         <activity
+            android:name=".user.ThongTinCaNhan"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.CapNhatThongTinCN"
+            android:exported="false" />
+
+        <activity
             android:name=".user.DangKy"
             android:exported="false" />
         <activity
