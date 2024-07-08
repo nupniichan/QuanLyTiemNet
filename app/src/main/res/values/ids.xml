@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="detail_id" type="id" />
+    <item name="detail_name" type="id" />
+    <item name="detail_type" type="id" />
+    <item name="detail_cpu" type="id" />
+    <item name="detail_gpu" type="id" />
+    <item name="detail_ram" type="id" />
+    <item name="detail_monitor" type="id" />
+    <item name="detail_price" type="id" />
+    <item name="detail_seat" type="id" />
+</resources>

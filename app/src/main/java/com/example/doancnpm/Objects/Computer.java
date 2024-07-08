@@ -1,6 +1,10 @@
 package com.example.doancnpm.Objects;
 
 public class Computer {
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -62,11 +66,21 @@ public class Computer {
     public String monitor;
     public Integer price;
     public String computerSeatLocation;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String status;
     public Computer() {
         // Default constructor required for calls to DataSnapshot.getValue(Computer.class)
     }
 
-    public Computer(String id, String name, String loaiMayTinh, String cpu, String gpu, String ram, String monitor, Integer price, String computerSeatLocatio) {
+    public Computer(String id, String name, String loaiMayTinh, String cpu, String gpu, String ram, String monitor, Integer price, String computerSeatLocation, String status) {
         this.id = id;
         this.name = name;
         this.loaiMayTinh = loaiMayTinh;
@@ -76,6 +90,7 @@ public class Computer {
         this.monitor = monitor;
         this.price = price;
         this.computerSeatLocation = computerSeatLocation;
+        this.status = status;
     }
 
 }

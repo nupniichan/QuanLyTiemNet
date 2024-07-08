@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,46 +15,56 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnCNPM"
         tools:targetApi="31">
-
         <activity
-            android:name=".user.LoginActivity"
+            android:name=".user.ReportActivity"
             android:exported="false" />
         <activity
-            android:name=".user.Fragments.DangNhap"
+            android:name=".user.FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.TrangChuDaDangNhap"
+            android:exported="false" />
+        <activity
+            android:name=".user.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuanLy.PendingOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.DangNhap"
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.DoAnCNPM" />
-
-        <!-- Activities merged from both branches -->
         <activity
             android:name=".QuanLy.ChuTiemTrangChu"
+            android:exported="false" />
+        <activity
+            android:name=".user.ThongTinCaNhan"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.CapNhatThongTinCN"
             android:exported="false" />
 
         <activity
             android:name=".user.DangKy"
             android:exported="false" />
-
         <activity
-            android:name=".TrangChu"
-            android:exported="true">
+            android:name=".Utils.Splash_Screen"
+            android:exported="true"
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".user.DangNhap"
-            android:exported="false" />
-
         <activity
             android:name=".user.TrangChuChuaDangNhap"
             android:exported="false" />
-
         <activity
-            android:name=".user.TrangChuDaDangNhap"
+            android:name=".TrangChu"
             android:exported="false" />
-
     </application>
 
 </manifest>

@@ -9,15 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doancnpm.R;
 
-public class DanhSachMayTinhViewHolder extends RecyclerView.ViewHolder {
+public class MayTinh_NguoiDung_ViewHolder extends RecyclerView.ViewHolder {
     public TextView TenMayTinh;
     public TextView CPU;
     public TextView GPU;
     public TextView RAM;
     public TextView Monitor;
     public TextView Price;
+    public TextView Status;
+    public TextView SeatLocation;
     public Button ReservationButton;
-    public DanhSachMayTinhViewHolder(@NonNull View itemView) {
+    public MayTinh_NguoiDung_ViewHolder(@NonNull View itemView) {
         super(itemView);
         TenMayTinh = itemView.findViewById(R.id.TenMayTinhTextView);
         CPU = itemView.findViewById(R.id.CPUTextView);
@@ -26,5 +28,7 @@ public class DanhSachMayTinhViewHolder extends RecyclerView.ViewHolder {
         Monitor = itemView.findViewById(R.id.MonitorTextView);
         Price = itemView.findViewById(R.id.PriceTextView);
         ReservationButton = itemView.findViewById(R.id.btnReservation);
+        Status = itemView.findViewById(R.id.TinhTrangMayTextView);
+        SeatLocation = itemView.findViewById(R.id.GheMayTextView);
     }
 }

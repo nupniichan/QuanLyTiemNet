@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doancnpm.R;
 
-public class QuanLyDanhSachDichVuViewHolder extends RecyclerView.ViewHolder {
+public class DichVu_QuanLy_ViewHolder extends RecyclerView.ViewHolder {
     public TextView TenDichVu;
     public TextView ServiceName;
     public TextView LoaiDichVu;
@@ -20,7 +20,7 @@ public class QuanLyDanhSachDichVuViewHolder extends RecyclerView.ViewHolder {
     public TextView Price;
     public Button ReservationButton;
     public ImageButton menuButton;
-    public QuanLyDanhSachDichVuViewHolder(@NonNull View itemView) {
+    public DichVu_QuanLy_ViewHolder(@NonNull View itemView) {
         super(itemView);
         TenDichVu = itemView.findViewById(R.id.TenDichVuTextView);
         ServiceName = itemView.findViewById(R.id.MoTaTextView);

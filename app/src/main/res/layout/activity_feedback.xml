@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <!-- Back button -->
+            <ImageButton
+                android:id="@+id/buttonBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:padding="8dp"
+            android:layout_marginEnd="8dp"/>
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Góp ý"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Họ tên"
+            android:inputType="textPersonName"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/textViewPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số điện thoại"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ngày khởi tạo"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/editTextFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nội dung góp ý"
+            android:inputType="textMultiLine"
+            android:minHeight="100dp"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tôi hy vọng rằng những góp ý này sẽ giúp quán cải thiện và nâng cao chất lượng dịch vụ, tạo ra một môi trường tốt hơn cho tất cả khách hàng."
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gửi góp ý"
+            android:backgroundTint="@color/purple"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+</ScrollView>

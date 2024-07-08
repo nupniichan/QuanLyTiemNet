@@ -1,14 +1,10 @@
 package com.example.doancnpm.user;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PatternMatcher;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -21,6 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.doancnpm.R;
+import com.example.doancnpm.Objects.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +26,9 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class DangKy extends AppCompatActivity {
 
@@ -38,8 +38,6 @@ public class DangKy extends AppCompatActivity {
     private RadioButton radioButtonGenderSelected;
     private  static  final String TAG="DangKyActivity";
     Button btnDK;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +45,7 @@ public class DangKy extends AppCompatActivity {
 
 
         Toast.makeText(DangKy.this,"Bạn có thể đăng ký ngay bây giờ",Toast.LENGTH_LONG).show();
-       progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
         edtHovaTen = findViewById(R.id.edtHovaTen);
         edtEmai=findViewById(R.id.edtEmail);
         edtNgaySinh=findViewById(R.id.edtNgaySinh);
@@ -115,9 +113,9 @@ public class DangKy extends AppCompatActivity {
                     edtMatKhau.setError("Yêu cầu nhập mật khẩu");
                     edtMatKhau.requestFocus();
 
-                }else  if(txtMatKhau.length()<6||!txtMatKhau.matches(".*[A-Z]*.")||!txtMatKhau.matches(".*[a-z]*.")){
+                }else  if(txtMatKhau.length()<6){
                     Toast.makeText(DangKy.this,"Vui lòng nhập lại mật khẩu",Toast.LENGTH_LONG).show();
-                    edtMatKhau.setError("Mật khẩu phải có chứa chữ in hoa và nhiều hơn 6 kí tự");
+                    edtMatKhau.setError("Mật khẩu phải có nhiều hơn 6 kí tự");
                     edtMatKhau.requestFocus();
                 } else  if(TextUtils.isEmpty(txtXNMatKhau)){
                     Toast.makeText(DangKy.this,"Vui lòng nhập mật khẩu",Toast.LENGTH_LONG).show();
@@ -125,7 +123,7 @@ public class DangKy extends AppCompatActivity {
                     edtXNMatKhau.requestFocus();
                 }else  if(!txtMatKhau.equals(txtXNMatKhau)){
                     Toast.makeText(DangKy.this,"Vui lòng nhập nhập cùng một mật khẩu",Toast.LENGTH_LONG).show();
-                    edtXNMatKhau.setError("Yêu cầu nhập lại xác nhận mật khẩu");
+                    edtXNMatKhau.setError("Yêu cầu nhập lại ");
                     edtXNMatKhau.requestFocus();
                     edtMatKhau.clearComposingText();
                     edtXNMatKhau.clearComposingText();
@@ -150,9 +148,6 @@ public class DangKy extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     DangKyUser(txtHovaTen,txtEmail,txtNgaySinh,txtSDT,txtMatKhau,txtXNMatKhau,txtDiaChi,txtCCCD,txtGioiTinh);
                 }
-
-
-
             }
         });
     }
@@ -162,38 +157,59 @@ public class DangKy extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(txtEmail,txtMatKhau).addOnCompleteListener(DangKy.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-            if(task.isSuccessful()){
-                Toast.makeText(DangKy.this,"Đăng ký thành công",Toast.LENGTH_LONG).show();
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                firebaseUser.sendEmailVerification();
+                if(task.isSuccessful()){
 
-//                //chuyển sang trang chủ
-//                Intent intent = new Intent(DangKy.this, TrangChuDaDangNhap.class);
-//                //xóa section
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//                finish();
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(txtHovaTen).build();
+                    firebaseUser.updateProfile(profileChangeRequest);
 
-            }else {
-                try {
-                    throw task.getException();
 
-                }catch (FirebaseAuthWeakPasswordException e){
-                    edtMatKhau.setError("mật khẩu của bạn rất yếu, vui lòng kết hợp với chữ viết hoa và số");
-                    edtMatKhau.requestFocus();
+                    //nhap du lieu vao trong realtime database
+                    Users nhapthongtin= new Users(txtEmail,txtNgaySinh,txtGioiTinh,txtSDT,txtMatKhau,txtCCCD,txtDiaChi,0,0.0, "Thành viên");
+                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Users");
 
-                }catch (FirebaseAuthInvalidCredentialsException e){
-                    edtEmai.setError("Email của bạn không hợp lệ hoặc đã được sử dụng, vui lòng nhập lại !");
-                    edtEmai.requestFocus();
-                }catch (FirebaseAuthUserCollisionException e){
-                    edtEmai.setError("Email của bạn đã được đăng ký, vui lòng xài tài khoản khác");
-                    edtEmai.requestFocus();
-                }catch (Exception e ){
-                    Log.e(TAG,e.getMessage());
-                    Toast.makeText(DangKy.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                    referenceProfile.child(firebaseUser.getUid()).setValue(nhapthongtin).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if(task.isSuccessful()){
+                                firebaseUser.sendEmailVerification();
+                                Toast.makeText(DangKy.this,"Đăng ký thành công, vui lòng kiểm tra email của bạn",Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(DangKy.this, ThongTinCaNhan.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else {
+
+                                Toast.makeText(DangKy.this,"Đăng ký thất bại, vui lòng thử lại",Toast.LENGTH_LONG).show();
+
+
+                            }
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+                }else {
+                    try {
+                        throw task.getException();
+
+                    }catch (FirebaseAuthWeakPasswordException e){
+                        edtMatKhau.setError("mật khẩu của bạn rất yếu, vui lòng kết hợp với chữ viết hoa và số");
+                        edtMatKhau.requestFocus();
+
+                    }catch (FirebaseAuthInvalidCredentialsException e){
+                        edtEmai.setError("Email của bạn không hợp lệ hoặc đã được sử dụng, vui lòng nhập lại !");
+                        edtEmai.requestFocus();
+                    }catch (FirebaseAuthUserCollisionException e){
+                        edtEmai.setError("Email của bạn đã được đăng ký, vui lòng xài tài khoản khác");
+                        edtEmai.requestFocus();
+                    }catch (Exception e ){
+                        Log.e(TAG,e.getMessage());
+                        Toast.makeText(DangKy.this,e.getMessage(),Toast.LENGTH_LONG).show();
+
+                    }
                     progressBar.setVisibility(View.GONE);
                 }
-            }
             }
         });
 

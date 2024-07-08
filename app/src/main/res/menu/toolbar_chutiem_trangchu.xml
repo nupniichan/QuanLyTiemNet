@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom">
     </item>
     <item
-        android:title="Person"
+        android:title="Notification"
         android:id="@+id/ToolBarTrangChuChuTiem_Notification"
         android:icon="@drawable/notification_vector"
         app:showAsAction="ifRoom">

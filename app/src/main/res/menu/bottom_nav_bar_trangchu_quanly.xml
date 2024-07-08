@@ -9,7 +9,7 @@
     <item android:title="Dịch vụ"
         android:icon="@drawable/service_vector"
         android:id="@+id/btm_nvbar_serivce_trangchu_quanly"></item>
-    <item android:title="Khác"
+    <item android:title="Cài đặt"
         android:icon="@drawable/options_vector"
         android:id="@+id/btm_nvbar_options_trangchu_quanly"></item>
 </menu>
