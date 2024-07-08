@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import com.example.doancnpm.user.Fragments.DichVuFragment;
 import com.example.doancnpm.user.Fragments.MayTinhFragment;
 import com.example.doancnpm.user.Fragments.SettingFragment;
 import com.example.doancnpm.user.Fragments.TrangChuFragment;
+import com.example.doancnpm.user.ThongTinCaNhan;
 
 public class TrangChu extends AppCompatActivity {
     private TrangChuBinding binding;
@@ -58,6 +61,8 @@ public class TrangChu extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.ToolBarTrangChu_Person) {
+            Intent intent = new Intent(TrangChu.this, ThongTinCaNhan.class);
+            startActivity(intent);
             // Xử lý khác nếu cần
             return true;
         }

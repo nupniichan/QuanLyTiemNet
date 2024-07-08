@@ -1,6 +1,6 @@
-package com.example.doancnpm.RecyclerView.Adapters;
+package com.example.doancnpm.Objects;
 
-public class ThongTinNguoiDungAdapter {
+public class Users {
 
 
     public String getEmail() {
@@ -95,7 +95,7 @@ public class ThongTinNguoiDungAdapter {
     private double SoDuTK;
     private int userType;
 
-    public ThongTinNguoiDungAdapter( String Email,String NgaySinh, String GioiTinh, String SDT,String MatKhau, String CCCD, String DiaChi, int userType, Double SoDuTK, String ThuHang) {
+    public Users(String Email, String NgaySinh, String GioiTinh, String SDT, String MatKhau, String CCCD, String DiaChi, int userType, Double SoDuTK, String ThuHang) {
         this.Email=Email;
         this.NgaySinh = NgaySinh;
         this.GioiTinh = GioiTinh;
@@ -106,5 +106,8 @@ public class ThongTinNguoiDungAdapter {
         this.SoDuTK = SoDuTK;
         this.userType=userType;
         this.ThuHang = ThuHang;
+    }
+    public  Users(){
+
     }
 }

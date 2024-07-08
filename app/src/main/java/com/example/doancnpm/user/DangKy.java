@@ -17,7 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.doancnpm.R;
-import com.example.doancnpm.RecyclerView.Adapters.ThongTinNguoiDungAdapter;
+import com.example.doancnpm.Objects.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -165,7 +165,7 @@ public class DangKy extends AppCompatActivity {
 
 
                 //nhap du lieu vao trong realtime database
-                ThongTinNguoiDungAdapter nhapthongtin= new ThongTinNguoiDungAdapter(txtEmail,txtNgaySinh,txtGioiTinh,txtSDT,txtMatKhau,txtCCCD,txtDiaChi,0,0.0, "Thành viên");
+                Users nhapthongtin= new Users(txtEmail,txtNgaySinh,txtGioiTinh,txtSDT,txtMatKhau,txtCCCD,txtDiaChi,0,0.0, "Thành viên");
                 DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Users");
 
                 referenceProfile.child(firebaseUser.getUid()).setValue(nhapthongtin).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -175,7 +175,7 @@ public class DangKy extends AppCompatActivity {
                         if(task.isSuccessful()){
                             firebaseUser.sendEmailVerification();
                             Toast.makeText(DangKy.this,"Đăng ký thành công, vui lòng kiểm tra email của bạn",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(DangKy.this, DangNhap.class);
+                            Intent intent = new Intent(DangKy.this, ThongTinCaNhan.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
