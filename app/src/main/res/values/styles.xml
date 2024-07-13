@@ -5,5 +5,9 @@
         <!-- Customize your theme here. -->
         <item name="android:windowIsTranslucent">true</item>
     </style>
-
+    <style name="TextViewRightAlign">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">end</item>
+    </style>
 </resources>

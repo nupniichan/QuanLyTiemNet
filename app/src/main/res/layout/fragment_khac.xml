@@ -3,14 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.Fragments.SettingFragment">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/chinoavatar"
-        android:layout_gravity="center"
-        android:layout_marginBottom="200dp"/>
+    tools:context=".user.Fragments.KhacFragment">
 
     <ListView
         android:id="@+id/listViewSettings"

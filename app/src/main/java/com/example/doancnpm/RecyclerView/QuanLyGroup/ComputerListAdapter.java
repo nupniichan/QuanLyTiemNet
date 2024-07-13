@@ -93,7 +93,7 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 radioGroup.setOnCheckedChangeListener((viewGroup, checkedId) -> {
                     if (checkedId == R.id.available_computers_radio) {
                         // Lọc theo trạng thái máy
-                        filterComputersByStatus(position, "CON TRONG");
+                        filterComputersByStatus(position, "Con trong");
                     } else if (checkedId == R.id.all_computers_radio) {
                         // Hiển thị tất cả máy tính trong nhóm
                         showAllComputersInGroup(position);

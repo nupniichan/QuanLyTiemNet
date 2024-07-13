@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import com.example.doancnpm.databinding.TrangChuBinding;
 import com.example.doancnpm.user.Fragments.DichVuFragment;
 import com.example.doancnpm.user.Fragments.MayTinhFragment;
-import com.example.doancnpm.user.Fragments.SettingFragment;
+import com.example.doancnpm.user.Fragments.KhacFragment;
 import com.example.doancnpm.user.Fragments.TrangChuFragment;
 import com.example.doancnpm.user.ThongTinCaNhan;
 
@@ -45,7 +45,7 @@ public class TrangChu extends AppCompatActivity {
             } else if (itemId == R.id.btm_nvbar_serivce_trangchu) {
                 replaceFragment(new DichVuFragment());
             } else if (itemId == R.id.btm_nvbar_options_trangchu) {
-                replaceFragment(new SettingFragment());
+                replaceFragment(new KhacFragment());
             }
             return true;
         });

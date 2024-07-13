@@ -2,142 +2,128 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/DichVuCardView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+            <TextView
+                android:id="@+id/TenDichVuTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Tên dịch vụ"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/QuanLyDichVuButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/TenDichVuTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="Tên dịch vụ"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"></LinearLayout>
-
-                <ImageButton
-                    android:id="@+id/QuanLyDichVuButton"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:background="#00FFFFFF"
-                    android:baselineAlignBottom="true"
-                    android:src="@drawable/menu_vector" />
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/QuanLyDichVuButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:src="@drawable/menu_vector"
+                app:layout_constraintBottom_toBottomOf="@+id/TenDichVuTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/TenDichVuTextView" />
 
             <View
-                android:layout_width="match_parent"
+                android:id="@+id/divider1"
+                android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TenDichVuTextView" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/ServiceImageID"
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/img1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+            <TextView
+                android:id="@+id/MoTaTextView"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Mô tả"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/SerivceTypeID"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ServiceImageID"
+                app:layout_constraintTop_toTopOf="@+id/ServiceImageID" />
 
-                <ImageView
-                    android:id="@+id/ServiceImageID"
-                    android:layout_width="200dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/img1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/MoTaTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center|start"
-                        android:text="Mo ta"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/SerivceTypeID"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center|start"
-                        android:text="Loại dịch vụ"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/SerivceTypeID"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Loại dịch vụ"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ServiceImageID"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ServiceImageID"
+                app:layout_constraintTop_toBottomOf="@+id/MoTaTextView" />
 
             <View
-                android:layout_width="match_parent"
+                android:id="@+id/divider2"
+                android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:background="@android:color/darker_gray" />
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ServiceImageID" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/PriceIconImageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/money_vector"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+            <TextView
+                android:id="@+id/PriceTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:text="Giá: 14.000 VND"
+                android:textColor="@color/yellow"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/PriceIconImageView"
+                app:layout_constraintStart_toEndOf="@+id/PriceIconImageView"
+                app:layout_constraintTop_toTopOf="@+id/PriceIconImageView" />
 
-                <ImageView
-                    android:id="@+id/PriceIconImageView"
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/money_vector" />
-
-                <TextView
-                    android:id="@+id/PriceTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="Giá: 14.000 VND"
-                    android:textColor="@color/yellow"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

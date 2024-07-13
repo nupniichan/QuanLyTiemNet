@@ -291,11 +291,12 @@ public class MayTinh_NguoiDung_Adapter extends RecyclerView.Adapter<RecyclerView
         orderData.put("ngayChoi", selectedDate + " " + selectedTime);
         orderData.put("loaiMay", loaiMay);
         orderData.put("gheMay", gheMay);
+        orderData.put("loaiDonHang", "maytinh");  // Set order type to "máy tính"
 
         ordersRef.child(orderId).setValue(orderData)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(context, "Đặt chỗ thành công!", Toast.LENGTH_SHORT).show();
-                    callback.onOrderCreatedSuccessfully(); // Gọi callback
+                    callback.onOrderCreatedSuccessfully();
                 })
                 .addOnFailureListener(e -> Toast.makeText(context, "Lỗi khi tạo đơn hàng: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }

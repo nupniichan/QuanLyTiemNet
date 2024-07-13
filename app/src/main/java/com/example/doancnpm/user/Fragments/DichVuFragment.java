@@ -214,16 +214,18 @@ public class DichVuFragment extends Fragment {
         orderData.put("userEmail", userEmail);
         orderData.put("trangThai", "Chờ xác nhận");
         orderData.put("soTien", tongTien);
-        orderData.put("serviceName", serviceName); // Lưu tên dịch vụ
-        orderData.put("serviceType", serviceType); // Lưu loại dịch vụ
+        orderData.put("serviceName", serviceName);
+        orderData.put("serviceType", serviceType);
         orderData.put("soLuong", soLuong);
         orderData.put("soGhe", soGhe);
+        orderData.put("loaiDonHang", "dichvu");  // Set order type to "dịch vụ"
 
         ordersRef.child(orderId).setValue(orderData)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getContext(), "Đặt dịch vụ thành công!", Toast.LENGTH_SHORT).show();
-                    callback.onOrderCreatedSuccessfully(); // Đóng dialog
+                    callback.onOrderCreatedSuccessfully();
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Lỗi khi tạo đơn hàng: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
+
 }

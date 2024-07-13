@@ -13,12 +13,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.doancnpm.QuanLy.Fragments.CapNhatThuHang;
+import com.example.doancnpm.QuanLy.Fragments.DanhSachDatDichVuFragment;
 import com.example.doancnpm.QuanLy.Fragments.QuanLyDichVu;
 import com.example.doancnpm.QuanLy.Fragments.QuanLyMayTinh;
 import com.example.doancnpm.QuanLy.Fragments.TrangChuQuanLy;
 import com.example.doancnpm.R;
 import com.example.doancnpm.databinding.ChuTiemTrangChuBinding;
-import com.example.doancnpm.user.Fragments.SettingFragment;
+import com.example.doancnpm.user.Fragments.KhacFragment;
 import com.example.doancnpm.user.ThongTinCaNhan;
 
 public class ChuTiemTrangChu extends AppCompatActivity {
@@ -41,7 +42,7 @@ public class ChuTiemTrangChu extends AppCompatActivity {
             } else if (itemId == R.id.btm_nvbar_serivce_trangchu_quanly) {
                 replaceFragment(new QuanLyDichVu());
             } else if (itemId == R.id.btm_nvbar_options_trangchu_quanly) {
-                replaceFragment(new SettingFragment());
+                replaceFragment(new KhacFragment());
             }
 
             return true;
@@ -68,9 +69,12 @@ public class ChuTiemTrangChu extends AppCompatActivity {
         if (id == R.id.ToolBarTrangChuChuTiem_Person) {
             Intent intent = new Intent(ChuTiemTrangChu.this, ThongTinCaNhan.class);
             startActivity(intent);
-            // Xử lý khác nếu cần
             return true;
-        }else if (id == R.id.ToolBarTrangChuChuTiem_QLUser) {
+        }
+        else if (id == R.id.ToolBarTrangChuChuTiem_Notification){
+            replaceFragment(new DanhSachDatDichVuFragment());
+        }
+        else if (id == R.id.ToolBarTrangChuChuTiem_QLUser) {
             replaceFragment(new CapNhatThuHang());
             return true;
         }

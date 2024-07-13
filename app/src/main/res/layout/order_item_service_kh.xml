@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/kh_tvServiceName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên dịch vụ: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/kh_tvServiceType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Loại dịch vụ: "
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/kh_tvSoLuong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số lượng: "
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/kh_tvSoGhe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số ghế: "
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/kh_tvSoTien"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số tiền: "
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/kh_tvTrangThai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Trạng thái: "
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/kh_tvemailnguoidat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email người đặt: "
+        android:textSize="18sp" />
+
+</LinearLayout>
