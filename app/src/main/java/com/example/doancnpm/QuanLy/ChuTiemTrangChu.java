@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.doancnpm.QuanLy.Fragments.CapNhatThuHang;
 import com.example.doancnpm.QuanLy.Fragments.QuanLyDichVu;
 import com.example.doancnpm.QuanLy.Fragments.QuanLyMayTinh;
 import com.example.doancnpm.QuanLy.Fragments.TrangChuQuanLy;
@@ -42,6 +43,7 @@ public class ChuTiemTrangChu extends AppCompatActivity {
             } else if (itemId == R.id.btm_nvbar_options_trangchu_quanly) {
                 replaceFragment(new SettingFragment());
             }
+
             return true;
         });
     }
@@ -68,12 +70,11 @@ public class ChuTiemTrangChu extends AppCompatActivity {
             startActivity(intent);
             // Xử lý khác nếu cần
             return true;
-        }
-        if(id==R.id.ToolBarTrangChuChuTiem_QLUser){
-            Intent intent = new Intent(ChuTiemTrangChu.this,CapNhatThuHang.class);
-            startActivity(intent);
+        }else if (id == R.id.ToolBarTrangChuChuTiem_QLUser) {
+            replaceFragment(new CapNhatThuHang());
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

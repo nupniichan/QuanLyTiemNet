@@ -1,8 +1,12 @@
-package com.example.doancnpm.QuanLy;
+package com.example.doancnpm.QuanLy.Fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,50 +17,40 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CapNhatThuHang extends AppCompatActivity {
+public class CapNhatThuHang extends Fragment {
+
     private RecyclerView recyclerView;
     DatabaseReference databaseReference;
     private ThongTin_NguoiDung_Adapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cap_nhat_thu_hang);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_cap_nhat_thu_hang, container, false);
 
-
-        recyclerView = findViewById(R.id.rv);
-
+        recyclerView = view.findViewById(R.id.RV); // Cập nhật ID cho RecyclerView
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FirebaseRecyclerOptions<Users> options =
                 new FirebaseRecyclerOptions.Builder<Users>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Users"), Users.class)
                         .build();
 
-
-
         adapter = new ThongTin_NguoiDung_Adapter(options);
         recyclerView.setAdapter(adapter);
 
-
-
-
-
-
-
+        return view;
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         adapter.stopListening();
     }
