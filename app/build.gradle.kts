@@ -25,8 +25,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
         buildFeatures {
@@ -62,6 +62,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.google.firebase:firebase-storage:21.0.0")
     implementation("com.google.firebase:firebase-auth:23.0.0")
+    implementation("com.google.android.gms:play-services-tflite-acceleration-service:16.0.0-beta01")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -83,4 +84,7 @@ dependencies {
     implementation ("com.airbnb.android:lottie:6.3.0")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     debugImplementation("com.squareup.picasso:picasso:2.71828")
+    implementation ("com.orhanobut:dialogplus:1.11")
+    implementation ("com.google.firebase:firebase-database:20.0.5")
+    implementation ("com.firebaseui:firebase-ui-database:8.0.0")
 }
