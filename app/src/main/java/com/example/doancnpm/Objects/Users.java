@@ -107,7 +107,10 @@ public class Users {
         this.userType=userType;
         this.ThuHang = ThuHang;
     }
-    public  Users(){
+    public Users(){
 
     }
 }
+
+
+

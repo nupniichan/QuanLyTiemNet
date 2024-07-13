@@ -5,12 +5,18 @@
         android:title="Person"
         android:id="@+id/ToolBarTrangChuChuTiem_Person"
         android:icon="@drawable/person_vector"
-        app:showAsAction="ifRoom">
+        app:showAsAction="always">
     </item>
     <item
         android:title="Notification"
         android:id="@+id/ToolBarTrangChuChuTiem_Notification"
         android:icon="@drawable/notification_vector"
+        app:showAsAction="always">
+    </item>
+    <item
+        android:title="QuanlyUser"
+        android:id="@+id/ToolBarTrangChuChuTiem_QLUser"
+        android:icon="@drawable/iconqluser"
         app:showAsAction="ifRoom">
     </item>
 </menu>
