@@ -45,7 +45,7 @@ public class DangKy extends AppCompatActivity {
 
 
         Toast.makeText(DangKy.this,"Bạn có thể đăng ký ngay bây giờ",Toast.LENGTH_LONG).show();
-       progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
         edtHovaTen = findViewById(R.id.edtHovaTen);
         edtEmai=findViewById(R.id.edtEmail);
         edtNgaySinh=findViewById(R.id.edtNgaySinh);
@@ -157,59 +157,59 @@ public class DangKy extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(txtEmail,txtMatKhau).addOnCompleteListener(DangKy.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-            if(task.isSuccessful()){
+                if(task.isSuccessful()){
 
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(txtHovaTen).build();
-                firebaseUser.updateProfile(profileChangeRequest);
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(txtHovaTen).build();
+                    firebaseUser.updateProfile(profileChangeRequest);
 
 
-                //nhap du lieu vao trong realtime database
-                Users nhapthongtin= new Users(txtEmail,txtNgaySinh,txtGioiTinh,txtSDT,txtMatKhau,txtCCCD,txtDiaChi,0,0.0, "Thành viên");
-                DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Users");
+                    //nhap du lieu vao trong realtime database
+                    Users nhapthongtin= new Users(txtEmail,txtNgaySinh,txtGioiTinh,txtSDT,txtMatKhau,txtCCCD,txtDiaChi,0,0.0, "Thành viên");
+                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Users");
 
-                referenceProfile.child(firebaseUser.getUid()).setValue(nhapthongtin).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    referenceProfile.child(firebaseUser.getUid()).setValue(nhapthongtin).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
 
-                        if(task.isSuccessful()){
-                            firebaseUser.sendEmailVerification();
-                            Toast.makeText(DangKy.this,"Đăng ký thành công, vui lòng kiểm tra email của bạn",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(DangKy.this, ThongTinCaNhan.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
+                            if(task.isSuccessful()){
+                                firebaseUser.sendEmailVerification();
+                                Toast.makeText(DangKy.this,"Đăng ký thành công, vui lòng kiểm tra email của bạn",Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(DangKy.this, ThongTinCaNhan.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else {
+
+                                Toast.makeText(DangKy.this,"Đăng ký thất bại, vui lòng thử lại",Toast.LENGTH_LONG).show();
+
+
+                            }
+                            progressBar.setVisibility(View.GONE);
                         }
-                        else {
+                    });
+                }else {
+                    try {
+                        throw task.getException();
 
-                            Toast.makeText(DangKy.this,"Đăng ký thất bại, vui lòng thử lại",Toast.LENGTH_LONG).show();
+                    }catch (FirebaseAuthWeakPasswordException e){
+                        edtMatKhau.setError("mật khẩu của bạn rất yếu, vui lòng kết hợp với chữ viết hoa và số");
+                        edtMatKhau.requestFocus();
 
+                    }catch (FirebaseAuthInvalidCredentialsException e){
+                        edtEmai.setError("Email của bạn không hợp lệ hoặc đã được sử dụng, vui lòng nhập lại !");
+                        edtEmai.requestFocus();
+                    }catch (FirebaseAuthUserCollisionException e){
+                        edtEmai.setError("Email của bạn đã được đăng ký, vui lòng xài tài khoản khác");
+                        edtEmai.requestFocus();
+                    }catch (Exception e ){
+                        Log.e(TAG,e.getMessage());
+                        Toast.makeText(DangKy.this,e.getMessage(),Toast.LENGTH_LONG).show();
 
-                        }
-                        progressBar.setVisibility(View.GONE);
                     }
-                });
-            }else {
-                try {
-                    throw task.getException();
-
-                }catch (FirebaseAuthWeakPasswordException e){
-                    edtMatKhau.setError("mật khẩu của bạn rất yếu, vui lòng kết hợp với chữ viết hoa và số");
-                    edtMatKhau.requestFocus();
-
-                }catch (FirebaseAuthInvalidCredentialsException e){
-                    edtEmai.setError("Email của bạn không hợp lệ hoặc đã được sử dụng, vui lòng nhập lại !");
-                    edtEmai.requestFocus();
-                }catch (FirebaseAuthUserCollisionException e){
-                    edtEmai.setError("Email của bạn đã được đăng ký, vui lòng xài tài khoản khác");
-                    edtEmai.requestFocus();
-                }catch (Exception e ){
-                    Log.e(TAG,e.getMessage());
-                    Toast.makeText(DangKy.this,e.getMessage(),Toast.LENGTH_LONG).show();
-
+                    progressBar.setVisibility(View.GONE);
                 }
-                progressBar.setVisibility(View.GONE);
-            }
             }
         });
 
