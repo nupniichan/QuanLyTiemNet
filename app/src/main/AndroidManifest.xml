@@ -16,6 +16,9 @@
         android:theme="@style/Theme.DoAnCNPM"
         tools:targetApi="31">
         <activity
+            android:name=".user.SupportMailboxActivity"
+            android:exported="false" />
+        <activity
             android:name=".QuanLy.CapNhatThuHang"
             android:exported="false" />
         <activity

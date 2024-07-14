@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,7 @@ import com.example.doancnpm.user.FeedbackActivity;
 import com.example.doancnpm.user.ReportActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class KhacFragment extends Fragment {
+public class SettingFragment extends Fragment {
 
     private ListView listView;
     private Button btnLogout;
@@ -28,12 +29,12 @@ public class KhacFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_khac, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
         listView = view.findViewById(R.id.listViewSettings);
         btnLogout = view.findViewById(R.id.txtDX);
 
-        String[] settingsOptions = {"Thông tin tài khoản", "Đổi mật khẩu", "Nạp tiền", "Góp ý", "Tố cáo","Hòm thư hỗ trợ",  "Thông tin phiên bản" };
+        String[] settingsOptions = {"Thông tin tài khoản", "Đổi mật khẩu", "Nạp tiền", "Góp ý", "Tố cáo", "Thông tin phiên bản"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, settingsOptions);
         listView.setAdapter(adapter);
 
@@ -62,7 +63,6 @@ public class KhacFragment extends Fragment {
                     case 5:
                         // Handle Thông tin phiên bản
                         break;
-
                 }
             }
         });
