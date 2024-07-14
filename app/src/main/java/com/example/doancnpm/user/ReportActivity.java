@@ -25,8 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -46,7 +44,7 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        edtName = findViewById(R.id.edtName); // User can now enter their name manually
+        edtName = findViewById(R.id.edtName);
         edtPhone = findViewById(R.id.edtPhone);
         edtEmail = findViewById(R.id.edtEmail);
         edtReportDate = findViewById(R.id.edtReportDate);
@@ -69,14 +67,15 @@ public class ReportActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
+                        String name = snapshot.child("name").getValue(String.class);
                         String phone = snapshot.child("phone").getValue(String.class);
+                        edtName.setText(name);
                         edtPhone.setText(phone);
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(ReportActivity.this, "Error loading user data", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -127,34 +126,15 @@ public class ReportActivity extends AppCompatActivity {
         String reportId = reportsRef.push().getKey();
 
         Report report = new Report(reportId, name, phone, email, reportDate, content, imageUri != null ? imageUri.toString() : null);
-
-        // If an image is selected, upload it first
-        if (imageUri != null) {
-            StorageReference fileReference = FirebaseStorage.getInstance().getReference("ReportImages").child(reportId);
-            fileReference.putFile(imageUri).addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                report.imageUrl = uri.toString();
-                reportsRef.child(reportId).setValue(report)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(ReportActivity.this, "Report submitted successfully", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                                Toast.makeText(ReportActivity.this, "Failed to submit report", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            })).addOnFailureListener(e -> Toast.makeText(ReportActivity.this, "Failed to upload image", Toast.LENGTH_SHORT).show());
-        } else {
-            // No image, just submit the report
-            reportsRef.child(reportId).setValue(report)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(ReportActivity.this, "Report submitted successfully", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            Toast.makeText(ReportActivity.this, "Failed to submit report", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
+        reportsRef.child(reportId).setValue(report)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(ReportActivity.this, "Report submitted successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(ReportActivity.this, "Failed to submit report", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public static class Report {

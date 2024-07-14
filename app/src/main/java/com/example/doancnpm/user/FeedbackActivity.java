@@ -23,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 public class FeedbackActivity extends AppCompatActivity {
@@ -96,24 +95,8 @@ public class FeedbackActivity extends AppCompatActivity {
             if (name.isEmpty() || feedback.isEmpty()) {
                 Toast.makeText(FeedbackActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
-                // Prepare data for Firebase
-                DatabaseReference feedbackRef = mDatabase.child("Feedbacks").push(); // Create a unique key for each feedback
-                HashMap<String, Object> feedbackData = new HashMap<>();
-                feedbackData.put("name", name);
-                feedbackData.put("email", textViewEmail.getText().toString());
-                feedbackData.put("phone", textViewPhone.getText().toString());
-                feedbackData.put("date", textViewDate.getText().toString());
-                feedbackData.put("content", feedback);
-                feedbackData.put("status", isChecked ? "Hoped for improvement" : "No specific hope");
-
-                // Submit data to Firebase
-                feedbackRef.setValue(feedbackData).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(FeedbackActivity.this, "Feedback submitted successfully", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(FeedbackActivity.this, "Failed to submit feedback: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                // Handle feedback submission
+                Toast.makeText(FeedbackActivity.this, "Feedback submitted", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.doancnpm.QuanLy.Fragments.CacChucNangKhacFragment;
 import com.example.doancnpm.QuanLy.Fragments.CapNhatThuHang;
 import com.example.doancnpm.QuanLy.Fragments.DanhSachDatDichVuFragment;
 import com.example.doancnpm.QuanLy.Fragments.QuanLyDichVu;
@@ -43,7 +42,7 @@ public class ChuTiemTrangChu extends AppCompatActivity {
             } else if (itemId == R.id.btm_nvbar_serivce_trangchu_quanly) {
                 replaceFragment(new QuanLyDichVu());
             } else if (itemId == R.id.btm_nvbar_options_trangchu_quanly) {
-                replaceFragment(new CacChucNangKhacFragment());
+                replaceFragment(new KhacFragment());
             }
 
             return true;
