@@ -20,15 +20,9 @@
 - Lúc sử dụng **git commit -m "tin nhắn"** thì ở chỗ tin nhắn mấy ông liệt kê càng chi tiết càng tốt nha
 
 # Các công việc cần làm
-- Nhận danh sách đơn đặt hàng và xác nhận đặt hàng ( của nhân viên với chủ tiệm )
 - Nhận báo cáo, tố cáo, góp ý của nhân viên và chủ tiệm
-- Chỉnh sửa giao diện trang chủ chủ tiệm
-- Chỉnh sửa giao diện trang chủ người dùng
-- Cải thiện giao diện các recyclerview
 - Quản lý chi phí
 - Quản lý doanh thu
 - Thiết lập chính sách và quy định
 - Chủ tiệm kiểm tra báo cáo tài chính
 - Chủ tiệm giải quyết báo cáo
-- Quản lý chức vụ nhân viên
-- Cập nhật thứ hạng cho khách hàng
