@@ -20,9 +20,7 @@
 - Lúc sử dụng **git commit -m "tin nhắn"** thì ở chỗ tin nhắn mấy ông liệt kê càng chi tiết càng tốt nha
 
 # Các công việc cần làm
-- Nhận báo cáo, tố cáo, góp ý của nhân viên và chủ tiệm
 - Quản lý chi phí
 - Quản lý doanh thu
 - Thiết lập chính sách và quy định
 - Chủ tiệm kiểm tra báo cáo tài chính
-- Chủ tiệm giải quyết báo cáo
