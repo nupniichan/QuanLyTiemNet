@@ -81,25 +81,24 @@ public class OrderAdapterKH extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 break;
         }
     }
-
     private void bindComputerViewHolder(ComputerViewHolder holder, Order order) {
-        holder.tvGheMay.setText("Ghế máy: " + order.getGheMay());
-        holder.tvLoaiMay.setText("Loại máy: " + order.getLoaiMay());
-        holder.tvNgayChoi.setText("Ngày chơi: " + order.getNgayChoi());
-        holder.tvSoGioChoi.setText("Số giờ chơi: " + order.getSoGioChoi());
-        holder.tvSoTien.setText("Số tiền: " + order.getSoTien());
-        holder.tvTrangThai.setText("Trạng thái: " + order.getTrangThai());
-        holder.tvUserEmail.setText("Email người đặt: " + order.getUserEmail());
+        holder.tvGheMay.setText(String.valueOf(order.getGheMay()));
+        holder.tvLoaiMay.setText(order.getLoaiMay());
+        holder.tvNgayChoi.setText(order.getNgayChoi());
+        holder.tvSoGioChoi.setText(String.valueOf(order.getSoGioChoi()));
+        holder.tvSoTien.setText(String.valueOf(order.getSoTien()));
+        holder.tvTrangThai.setText(order.getTrangThai());
+        holder.tvUserEmail.setText(order.getUserEmail());
     }
 
     private void bindServiceViewHolder(ServiceViewHolder holder, Order order) {
-        holder.tvServiceName.setText("Tên dịch vụ: " + order.getServiceName());
-        holder.tvServiceType.setText("Loại dịch vụ: " + order.getServiceType());
-        holder.tvSoLuong.setText("Số lượng: " + order.getSoLuong());
-        holder.tvSoGhe.setText("Số ghế: " + order.getSoGhe());
-        holder.tvSoTien.setText("Số tiền: " + order.getSoTien());
-        holder.tvTrangThai.setText("Trạng thái: " + order.getTrangThai());
-        holder.tvUserEmail.setText("Email người đặt: " + order.getUserEmail());
+        holder.tvServiceName.setText(order.getServiceName());
+        holder.tvServiceType.setText(order.getServiceType());
+        holder.tvSoLuong.setText(String.valueOf(order.getSoLuong()));
+        holder.tvSoGhe.setText(String.valueOf(order.getSoGhe()));
+        holder.tvSoTien.setText(String.valueOf(order.getSoTien()));
+        holder.tvTrangThai.setText(order.getTrangThai());
+        holder.tvUserEmail.setText(order.getUserEmail());
     }
 
     @Override

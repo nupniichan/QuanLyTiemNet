@@ -1,57 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/kh_tvGheMay"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ghế máy: "
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        android:layout_margin="8dp">
 
-    <TextView
-        android:id="@+id/kh_tvLoaiMay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Loại máy: "
-        android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <TextView
-        android:id="@+id/kh_tvNgayChoi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ngày chơi: "
-        android:textSize="18sp" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
 
-    <TextView
-        android:id="@+id/kh_tvSoGioChoi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Số giờ chơi: "
-        android:textSize="18sp" />
+                <TableRow android:padding="4dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ghế máy:"
+                        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/kh_tvSoTien"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Số tiền: "
-        android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/kh_tvGheMay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
 
-    <TextView
-        android:id="@+id/kh_tvTrangThai"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Trạng thái: "
-        android:textSize="18sp" />
+                <TableRow android:padding="4dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loại máy:"
+                        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/kh_tvemailnguoidat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Email người đặt: "
-        android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/kh_tvLoaiMay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow android:padding="4dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày chơi:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kh_tvNgayChoi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow android:padding="4dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Số giờ chơi:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kh_tvSoGioChoi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow android:padding="4dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Số tiền:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kh_tvSoTien"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow android:padding="4dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trạng thái:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kh_tvTrangThai"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow android:padding="4dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email người đặt:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kh_tvemailnguoidat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

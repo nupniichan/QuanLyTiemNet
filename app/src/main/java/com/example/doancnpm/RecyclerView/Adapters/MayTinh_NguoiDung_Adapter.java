@@ -119,7 +119,7 @@ public class MayTinh_NguoiDung_Adapter extends RecyclerView.Adapter<RecyclerView
 
             radioGroup.setOnCheckedChangeListener((viewGroup, checkedId) -> {
                 if (checkedId == R.id.available_computers_radio) {
-                    filterComputersByStatus(position, "CON TRONG");
+                    filterComputersByStatus(position, "Con trong");
                 } else if (checkedId == R.id.all_computers_radio) {
                     showAllComputersInGroup(position);
                 }

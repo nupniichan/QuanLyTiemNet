@@ -203,7 +203,7 @@ public class DichVuFragment extends Fragment {
         DecimalFormat formatter = new DecimalFormat("#,###");
         String tongTienFormatted = formatter.format(tongTien);
 
-        txtTongTien.setText("Tổng tiền: " + tongTienFormatted + " VND");
+        txtTongTien.setText(tongTienFormatted + " VND");
     }
 
     private void createOrderForService(Service service, String soGhe, int soLuong, int tongTien, String userId, String userEmail, String serviceName, String serviceType, DichVu_NguoiDung_Adapter.OrderCreationCallback callback) {
