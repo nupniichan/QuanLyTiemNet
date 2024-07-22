@@ -1,8 +1,6 @@
 package com.example.doancnpm.QuanLy.Fragments;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +8,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.doancnpm.QuanLy.CacChucNangKhac.FeedbackFragment;
 import com.example.doancnpm.QuanLy.CacChucNangKhac.QuanLyChiPhiFragment;
 import com.example.doancnpm.QuanLy.CacChucNangKhac.QuanLyDoanhThuFragment;
 import com.example.doancnpm.QuanLy.CacChucNangKhac.QuanLyThongTinCuaTiemFragment;
 import com.example.doancnpm.QuanLy.CacChucNangKhac.ThietLapChinhSachFragment;
-import com.example.doancnpm.R;
 import com.example.doancnpm.QuanLy.CacChucNangKhac.ToCaoTuNguoiDungFragment;
+import com.example.doancnpm.R;
 
 import java.util.ArrayList;
 
