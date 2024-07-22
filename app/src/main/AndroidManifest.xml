@@ -16,10 +16,7 @@
         android:theme="@style/Theme.DoAnCNPM"
         tools:targetApi="31">
         <activity
-            android:name=".user.SupportMailboxActivity"
-            android:exported="false" />
-        <activity
-            android:name=".QuanLy.CapNhatThuHang"
+            android:name=".QuanLy.CacChucNangKhac.TaoMoiChiPhi"
             android:exported="false" />
         <activity
             android:name=".user.ReportActivity"
@@ -32,9 +29,6 @@
             android:exported="false" />
         <activity
             android:name=".user.ChangePasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".QuanLy.PendingOrdersActivity"
             android:exported="false" />
         <activity
             android:name=".user.DangNhap"
