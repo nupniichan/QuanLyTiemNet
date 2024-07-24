@@ -79,10 +79,6 @@ public class QuanLyChiPhiFragment extends Fragment {
             }
         });
 
-
-
-
-
         return view;
     }
     private void showAddChiPhiDialog() {
