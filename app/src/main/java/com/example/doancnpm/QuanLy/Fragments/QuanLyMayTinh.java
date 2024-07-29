@@ -43,6 +43,7 @@ public class QuanLyMayTinh extends Fragment {
     private RecyclerView recyclerView;
     private ComputerListAdapter adapter;
     private List<Object> itemList = new ArrayList<>();
+    private Map<String, List<Computer>> computerMap = new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -134,7 +135,6 @@ public class QuanLyMayTinh extends Fragment {
         });
     }
 
-
     private void fetchComputersFromFirebase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("computers");
@@ -143,8 +143,8 @@ public class QuanLyMayTinh extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 itemList.clear();
+                computerMap.clear();
 
-                Map<String, List<Computer>> computerMap = new HashMap<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Computer computer = snapshot.getValue(Computer.class);
                     String groupName = computer.getLoaiMayTinh();
@@ -171,7 +171,6 @@ public class QuanLyMayTinh extends Fragment {
             }
         });
     }
-
 
     public void showComputerDetailsDialog(Computer computer) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -279,6 +278,12 @@ public class QuanLyMayTinh extends Fragment {
     }
 
     public void deleteComputer(int position) {
+        if (position < 0 || position >= itemList.size()) {
+            // Index is out of bounds
+            Toast.makeText(requireActivity(), "Invalid index for deletion", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Object item = itemList.get(position);
         if (item instanceof Computer) {
             Computer computer = (Computer) item;
@@ -296,11 +301,8 @@ public class QuanLyMayTinh extends Fragment {
                                 DatabaseReference myRef = database.getReference("computers").child(computer.getId());
                                 myRef.removeValue()
                                         .addOnSuccessListener(aVoid -> {
-                                            // Xóa item khỏi danh sách trong Fragment
-                                            itemList.remove(position);
-
-                                            // Cập nhật UI thông qua Adapter
-                                            adapter.notifyItemRemoved(position);
+                                            // Re-fetch data to maintain the group structure
+                                            fetchComputersFromFirebase();
 
                                             // Hiển thị Toast
                                             Toast.makeText(activity, "Xóa " + computer.getName() + " thành công", Toast.LENGTH_SHORT).show();

@@ -47,24 +47,14 @@ public class MayTinh_NguoiDung_Adapter extends RecyclerView.Adapter<RecyclerView
     private List<Object> items;
     private OnGroupClickListener groupClickListener;
 
-    // Firebase
-    private FirebaseUser currentUser;
-    private DatabaseReference databaseReference;
-
     public interface OnGroupClickListener {
         void onGroupClick(int position);
     }
-    public interface OrderCreationCallback {
-        void onOrderCreatedSuccessfully();
-    }
+
     public MayTinh_NguoiDung_Adapter(Context context, List<Object> items, OnGroupClickListener listener) {
         this.context = context;
         this.items = items;
         this.groupClickListener = listener;
-
-        // Firebase initialization
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -119,9 +109,9 @@ public class MayTinh_NguoiDung_Adapter extends RecyclerView.Adapter<RecyclerView
 
             radioGroup.setOnCheckedChangeListener((viewGroup, checkedId) -> {
                 if (checkedId == R.id.available_computers_radio) {
-                    filterComputersByStatus(position, "Con trong");
+                    filterComputersByStatus(group, "Con trong");
                 } else if (checkedId == R.id.all_computers_radio) {
-                    showAllComputersInGroup(position);
+                    showAllComputersInGroup(group);
                 }
             });
 
@@ -174,12 +164,10 @@ public class MayTinh_NguoiDung_Adapter extends RecyclerView.Adapter<RecyclerView
         edtPlayingTime.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Không cần thiết
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Không cần thiết
             }
 
             @Override
@@ -279,7 +267,7 @@ public class MayTinh_NguoiDung_Adapter extends RecyclerView.Adapter<RecyclerView
         btnCancel.setOnClickListener(v -> dialog.dismiss());
     }
 
-    private void createOrder(Computer computer, String selectedDate, String selectedTime, int playingTime, int totalPrice, String userId, String userEmail, String loaiMay, String gheMay, OrderCreationCallback callback) {
+    private void createOrder(Computer computer, String selectedDate, String selectedTime, int playingTime, int totalPrice, String userId, String userEmail, String loaiMay, String gheMay, Runnable callback) {
         DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("Orders");
         String orderId = ordersRef.push().getKey();
 
@@ -291,18 +279,17 @@ public class MayTinh_NguoiDung_Adapter extends RecyclerView.Adapter<RecyclerView
         orderData.put("ngayChoi", selectedDate + " " + selectedTime);
         orderData.put("loaiMay", loaiMay);
         orderData.put("gheMay", gheMay);
-        orderData.put("loaiDonHang", "maytinh");  // Set order type to "máy tính"
+        orderData.put("loaiDonHang", "maytinh");
 
         ordersRef.child(orderId).setValue(orderData)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(context, "Đặt chỗ thành công!", Toast.LENGTH_SHORT).show();
-                    callback.onOrderCreatedSuccessfully();
+                    callback.run();
                 })
                 .addOnFailureListener(e -> Toast.makeText(context, "Lỗi khi tạo đơn hàng: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
-    private void filterComputersByStatus(int groupPosition, String status) {
-        ComputerGroup group = (ComputerGroup) items.get(groupPosition);
+    private void filterComputersByStatus(ComputerGroup group, String status) {
         List<Computer> filteredComputers = new ArrayList<>();
         for (Computer computer : group.getComputers()) {
             if (computer.getStatus().equals(status)) {
@@ -310,23 +297,38 @@ public class MayTinh_NguoiDung_Adapter extends RecyclerView.Adapter<RecyclerView
             }
         }
 
-        int startIndex = groupPosition + 1;
-        int oldCount = getItemCount() - startIndex;
-        items.subList(startIndex, startIndex + oldCount).clear();
-        notifyItemRangeRemoved(startIndex, oldCount);
+        int position = items.indexOf(group);
+        if (position < 0) return;
 
-        items.addAll(startIndex, filteredComputers);
-        notifyItemRangeInserted(startIndex, filteredComputers.size());
+        hideAllComputersInGroup(group);
+
+        if (!filteredComputers.isEmpty()) {
+            int startIndex = position + 1;
+            items.addAll(startIndex, filteredComputers);
+            notifyItemRangeInserted(startIndex, filteredComputers.size());
+        }
     }
 
-    private void showAllComputersInGroup(int groupPosition) {
-        ComputerGroup group = (ComputerGroup) items.get(groupPosition);
+    private void showAllComputersInGroup(ComputerGroup group) {
+        int position = items.indexOf(group);
+        if (position < 0) return;
 
-        int startIndex = groupPosition + 1;
-        int currentCount = getItemCount() - startIndex;
-        items.subList(startIndex, startIndex + currentCount).clear();
+        hideAllComputersInGroup(group);
+
+        int startIndex = position + 1;
         items.addAll(startIndex, group.getComputers());
-        notifyItemRangeChanged(startIndex, getItemCount() - startIndex);
+        notifyItemRangeInserted(startIndex, group.getComputers().size());
+    }
+
+    private void hideAllComputersInGroup(ComputerGroup group) {
+        int position = items.indexOf(group);
+        if (position < 0) return;
+
+        int count = group.getComputers() != null ? group.getComputers().size() : 0;
+        if (count > 0) {
+            items.subList(position + 1, position + 1 + count).clear();
+            notifyItemRangeRemoved(position + 1, count);
+        }
     }
 
     @Override

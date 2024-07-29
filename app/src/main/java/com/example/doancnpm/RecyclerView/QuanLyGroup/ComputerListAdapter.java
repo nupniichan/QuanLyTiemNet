@@ -1,5 +1,7 @@
 package com.example.doancnpm.RecyclerView.QuanLyGroup;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,7 +20,9 @@ import com.example.doancnpm.R;
 import com.example.doancnpm.RecyclerView.ViewHolder.MayTinh_QuanLy_ViewHolder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -27,6 +31,10 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private List<Object> itemList;
     private QuanLyMayTinh fragment;
+
+    // Biến để theo dõi trạng thái lọc của từng nhóm
+    private Map<String, List<Computer>> filteredComputersMap = new HashMap<>();
+    private Map<String, Integer> selectedFilterMap = new HashMap<>();
 
     public ComputerListAdapter(List<Object> itemList, QuanLyMayTinh fragment) {
         this.itemList = itemList;
@@ -68,6 +76,14 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ComputerGroup group = (ComputerGroup) itemList.get(position);
                 ((ComputerGroupViewHolder) holder).bind(group);
 
+                // Đặt RadioButton mặc định là giá trị được lưu trong selectedFilterMap
+                Integer selectedFilter = selectedFilterMap.get(group.getGroupName());
+                if (selectedFilter == null || selectedFilter == R.id.all_computers_radio) {
+                    ((ComputerGroupViewHolder) holder).statusRadioGroup.check(R.id.all_computers_radio);
+                } else if (selectedFilter == R.id.available_computers_radio) {
+                    ((ComputerGroupViewHolder) holder).statusRadioGroup.check(R.id.available_computers_radio);
+                }
+
                 // Xử lý đóng/mở nhóm
                 ((ComputerGroupViewHolder) holder).itemView.setOnClickListener(v -> {
                     int pos = holder.getAdapterPosition();
@@ -77,8 +93,11 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         notifyItemChanged(pos);
                         if (grp.isExpanded()) {
                             int nextPosition = pos + 1;
-                            itemList.addAll(nextPosition, grp.getComputers());
-                            notifyItemRangeInserted(nextPosition, grp.getComputers().size());
+                            List<Computer> computersToShow = filteredComputersMap.containsKey(grp.getGroupName())
+                                    ? filteredComputersMap.get(grp.getGroupName())
+                                    : grp.getComputers();
+                            itemList.addAll(nextPosition, computersToShow);
+                            notifyItemRangeInserted(nextPosition, computersToShow.size());
                         } else {
                             int nextPosition = pos + 1;
                             int itemCount = grp.getComputers().size();
@@ -91,12 +110,13 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 // Xử lý sự kiện khi chọn trạng thái
                 RadioGroup radioGroup = ((ComputerGroupViewHolder) holder).statusRadioGroup;
                 radioGroup.setOnCheckedChangeListener((viewGroup, checkedId) -> {
+                    selectedFilterMap.put(group.getGroupName(), checkedId);
                     if (checkedId == R.id.available_computers_radio) {
                         // Lọc theo trạng thái máy
-                        filterComputersByStatus(position, "Con trong");
+                        filterComputersByStatus(group.getGroupName(), "Con trong");
                     } else if (checkedId == R.id.all_computers_radio) {
                         // Hiển thị tất cả máy tính trong nhóm
-                        showAllComputersInGroup(position);
+                        showAllComputersInGroup(group.getGroupName());
                     }
                 });
                 break;
@@ -116,35 +136,63 @@ public class ComputerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 break;
         }
     }
-    private void filterComputersByStatus(int groupPosition, String status) {
-        ComputerGroup group = (ComputerGroup) itemList.get(groupPosition);
-        List<Computer> filteredComputers = new ArrayList<>();
-        for (Computer computer : group.getComputers()) {
-            if (computer.getStatus().equals(status)) {
-                filteredComputers.add(computer);
+
+    private void filterComputersByStatus(String groupName, String status) {
+        ComputerGroup group = null;
+        for (Object item : itemList) {
+            if (item instanceof ComputerGroup && ((ComputerGroup) item).getGroupName().equals(groupName)) {
+                group = (ComputerGroup) item;
+                break;
             }
         }
-        // Thay đổi ở đây
-        itemList = new ArrayList<>(itemList.subList(0, groupPosition + 1)); // giữ lại phần tử group
-        itemList.addAll(filteredComputers);
-        notifyDataSetChanged();
+        if (group != null) {
+            List<Computer> filteredComputers = new ArrayList<>();
+            for (Computer computer : group.getComputers()) {
+                if (computer.getStatus().equals(status)) {
+                    filteredComputers.add(computer);
+                }
+            }
+            filteredComputersMap.put(groupName, filteredComputers);
+            updateGroupComputers(group, filteredComputers);
+        }
     }
 
-    private void showAllComputersInGroup(int groupPosition) {
-        ComputerGroup group = (ComputerGroup) itemList.get(groupPosition);
-        // Thay đổi ở đây
-        itemList = new ArrayList<>(itemList.subList(0, groupPosition + 1));
-        itemList.addAll(group.getComputers());
-        notifyDataSetChanged();
+    private void showAllComputersInGroup(String groupName) {
+        ComputerGroup group = null;
+        for (Object item : itemList) {
+            if (item instanceof ComputerGroup && ((ComputerGroup) item).getGroupName().equals(groupName)) {
+                group = (ComputerGroup) item;
+                break;
+            }
+        }
+        if (group != null) {
+            int groupPosition = itemList.indexOf(group);
+            if (groupPosition != -1) {
+                // Xóa các phần tử hiện tại trong nhóm
+                int nextPosition = groupPosition + 1;
+                while (nextPosition < itemList.size() && itemList.get(nextPosition) instanceof Computer) {
+                    itemList.remove(nextPosition);
+                }
+
+                // Thêm lại tất cả các máy tính trong nhóm
+                itemList.addAll(nextPosition, group.getComputers());
+
+                // Sử dụng Handler để trì hoãn notifyDataSetChanged()
+                new Handler(Looper.getMainLooper()).post(() -> notifyDataSetChanged());
+            }
+        }
     }
 
-    // Phương thức cập nhật danh sách máy tính trong nhóm
-    private void updateComputersInGroup(int groupPosition, List<Computer> newComputers) {
-        int startIndex = groupPosition + 1;
-        int oldCount = getItemCount() - startIndex;
-        itemList.subList(startIndex, startIndex + oldCount).clear();
-        itemList.addAll(startIndex, newComputers);
-        notifyItemRangeChanged(startIndex, getItemCount() - startIndex);
+    private void updateGroupComputers(ComputerGroup group, List<Computer> computersToShow) {
+        int groupPosition = itemList.indexOf(group);
+        int nextPosition = groupPosition + 1;
+        while (nextPosition < itemList.size() && itemList.get(nextPosition) instanceof Computer) {
+            itemList.remove(nextPosition);
+        }
+        itemList.addAll(nextPosition, computersToShow);
+
+        // Sử dụng Handler để trì hoãn notifyDataSetChanged()
+        new Handler(Looper.getMainLooper()).post(() -> notifyDataSetChanged());
     }
 
     private void showPopupMenu(View view, int position) {
